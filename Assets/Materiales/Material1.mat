@@ -62,10 +62,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
-    - _CoefMaterialBrightness: 1
-    - _CoefMaterialDifusse: 0.813
-    - _CoefMaterialReflexion: 0.602
-    - _CoefMaterialSpecular: 0
+    - _CoefMaterialBrightness: 51.9
+    - _CoefMaterialDifusse: 1
+    - _CoefMaterialReflexion: 1
+    - _CoefMaterialSpecular: 0.695
     - _CoefMaterialbrightness: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -77,21 +77,21 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PointLightIntensity: 10
+    - _PointLightIntensity: 3.32
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WorldLightIntensity: 1
+    - _WorldLightIntensity: 0.35
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightColor: {r: 1, g: 0, b: 0.9729886, a: 1}
     - _LightPosition_w: {r: 0, g: 1, b: 0, a: 1}
-    - _MaterialColor: {r: 0.4716981, g: 0, b: 0, a: 1}
-    - _PointLightColor: {r: 0.9716981, g: 0.1787558, b: 0.1787558, a: 0.1764706}
-    - _PointLightPosition_w: {r: 0, g: 1, b: 0, a: 1}
-    - _WorldLightColor: {r: 0.43396226, g: 0.8679245, b: 0, a: 1}
+    - _MaterialColor: {r: 0.7169812, g: 0.23919022, b: 0.11836952, a: 1}
+    - _PointLightColor: {r: 0.84001243, g: 0.8773585, b: 0.43454075, a: 1}
+    - _PointLightPosition_w: {r: 0, g: 3, b: 5.04, a: 1}
+    - _WorldLightColor: {r: 0.8113208, g: 0.5549128, b: 0.5549128, a: 1}
     - _WorldLightPosition_w: {r: 0, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
