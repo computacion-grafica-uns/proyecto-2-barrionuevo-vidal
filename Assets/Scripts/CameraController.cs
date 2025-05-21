@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public float mouseSensitivity;
+    public float minPitch;
+    public float maxPitch;
+
+    public float zoomSpeed;
+    public float minFOV, maxFOV, heightCompensation;
     public GameObject targetCamera;
-    public float velocityRotation;
     public List<GameObject> listGameObjects;
     private int currentIndex;
+    private float pitch; // rotación vertical acumulada
+    private float yValue;
+
     void Start()
     {
+        yValue = 0;
+        pitch = 0;
+
         currentIndex = 0;
         if (listGameObjects.Count > 0)
         {
@@ -20,6 +31,8 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         CheckControls();
+        checkZoom();
+        CheckMouseLook();
     }
 
     private void CheckControls()
@@ -42,12 +55,16 @@ public class CameraController : MonoBehaviour
 
             ChangedTarget(currentIndex);
         }
-
-        if (Input.GetKey(KeyCode.A))
-            ChangedRotation(1);
-        else if (Input.GetKey(KeyCode.D))
-            ChangedRotation(-1);
     }
+
+    private void checkZoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        Camera.main.fieldOfView -= scroll * zoomSpeed;
+        Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, minFOV, maxFOV);
+    }
+
+    
 
     private void ChangedTarget(int value)
     {
@@ -55,8 +72,24 @@ public class CameraController : MonoBehaviour
         targetCamera.transform.position = target.transform.position;
     }
 
-    private void ChangedRotation(int value)
+    private void CheckMouseLook()
     {
-        targetCamera.transform.Rotate(0, value * velocityRotation, 0);
+        if (Input.GetMouseButton(1)) // botón derecho presionado
+        {
+            float mouseY = Input.GetAxis("Mouse Y");
+            float mouseX = Input.GetAxis("Mouse X");
+
+            pitch -= mouseY * mouseSensitivity;
+            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+
+            yValue += mouseX * mouseSensitivity;
+
+            ApplyRotation();
+        }
+    }
+
+    private void ApplyRotation()
+    {
+        targetCamera.transform.rotation = Quaternion.Euler(pitch, yValue,0);
     }
 }
