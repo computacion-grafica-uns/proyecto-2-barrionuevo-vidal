@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PhongCeramica
+  m_Name: PhongBarro
   m_Shader: {fileID: 4800000, guid: 2396087a0db3d4143b9643ce54ffef78, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,6 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Apertura: 1
     - _BumpScale: 1
     - _CoefMaterialBrightness: 8
     - _CoefMaterialDifusse: 0.8
@@ -69,6 +70,7 @@ Material:
     - _CoefMaterialbrightness: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DirLightIntensity: 0.4
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -77,22 +79,33 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PointLightIntensity: 10
+    - _PointLightIntensity: 0
+    - _PointLightRange: 0.1
+    - _Shininess: 8
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpotLightAngle: 0
+    - _SpotLightIntensity: 0
+    - _SpotLightRange: 0.1
     - _SrcBlend: 1
     - _UVSec: 0
     - _WorldLightIntensity: 1
     - _ZWrite: 1
     m_Colors:
+    - _AmbientLightColor: {r: 0.25, g: 0.2, b: 0.18, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DirLightColor: {r: 1, g: 1, b: 0.95, a: 1}
+    - _DirLightDirection: {r: 45, g: -30, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightColor: {r: 1, g: 0, b: 0.9729886, a: 1}
     - _LightPosition_w: {r: 0, g: 1, b: 0, a: 1}
-    - _MaterialColor: {r: 0.6, g: 0.29999995, b: 0.1, a: 1}
-    - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _PointLightPosition_w: {r: 0, g: 1, b: 0, a: 1}
-    - _SpecularColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+    - _MaterialColor: {r: 0.6, g: 0.3, b: 0.15, a: 1}
+    - _PointLightColor: {r: 1, g: 0.8977988, b: 0.5990566, a: 1}
+    - _PointLightPosition_w: {r: 0, g: 3, b: 0, a: 1}
+    - _SpecularColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
+    - _SpotLightColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpotLightDirection: {r: 0, g: -1, b: 0, a: 0}
+    - _SpotLightPosition: {r: 0, g: 3, b: 0, a: 1}
     - _WorldLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _WorldLightPosition_w: {r: 0, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []

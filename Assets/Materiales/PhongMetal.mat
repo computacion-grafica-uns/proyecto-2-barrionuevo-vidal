@@ -69,6 +69,7 @@ Material:
     - _CoefMaterialbrightness: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DirLightIntensity: 1.5
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -77,22 +78,33 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PointLightIntensity: 10
+    - _PointLightIntensity: 0
+    - _PointLightRange: 10
+    - _Shininess: 200
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpotLightAngle: 30
+    - _SpotLightIntensity: 0
+    - _SpotLightRange: 15
     - _SrcBlend: 1
     - _UVSec: 0
     - _WorldLightIntensity: 1
     - _ZWrite: 1
     m_Colors:
+    - _AmbientLightColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DirLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DirLightDirection: {r: 45, g: -30, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightColor: {r: 1, g: 0, b: 0.9729886, a: 1}
     - _LightPosition_w: {r: 0, g: 1, b: 0, a: 1}
-    - _MaterialColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+    - _MaterialColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
     - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _PointLightPosition_w: {r: 0, g: 2, b: 6, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpotLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpotLightDirection: {r: 0, g: -1, b: 0, a: 0}
+    - _SpotLightPosition: {r: 0, g: 3, b: 0, a: 1}
     - _WorldLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _WorldLightPosition_w: {r: 0, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
