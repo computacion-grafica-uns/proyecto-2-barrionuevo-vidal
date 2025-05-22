@@ -23,7 +23,7 @@ Shader "ShaderPhong"
         // Luz spot
         _SpotLightPosition("Spot Light Position", Vector) = (0,3,0,1)
         _SpotLightDirection("Spot Light Direction", Vector) = (0,-1,0,0)
-        _SpotLightColor("Spot Light Color",Color)  = (1,1,1,1)
+        _SpotLightColor("Spot Light Color",Color) = (1,1,1,1)
         _SpotLightIntensity("Spot Light Intensity", Range(0,10)) = 1
         _SpotLightRange("Spot Light Range", Range(0.1,50))= 15
         _SpotLightAngle("Spot Light Half-Angle", Range(0,90)) = 30

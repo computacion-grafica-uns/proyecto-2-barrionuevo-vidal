@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlasticMaterialSwitcher : MonoBehaviour
+public class PhongPlasticMaterialSwitcher : MonoBehaviour
 {
     [Tooltip("El Renderer de la tetera a modificar")]
     public Renderer teteraRenderer;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MetalPulidoSwitcher : MonoBehaviour
+public class PhongMetalPulidoSwitcher : MonoBehaviour
 {
     public Renderer teteraRenderer;
 

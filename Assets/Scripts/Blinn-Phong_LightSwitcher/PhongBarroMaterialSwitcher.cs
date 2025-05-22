@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BarroMaterialSwitcher : MonoBehaviour
+public class PhongBarroMaterialSwitcher : MonoBehaviour
 {
     public Renderer teteraRenderer;
 
@@ -48,12 +48,12 @@ public class BarroMaterialSwitcher : MonoBehaviour
     void SetBarroDirLight()
     {
         // Ambiente
-        mat.SetColor("_AmbientLightColor",  new Color(0.25f, 0.20f, 0.18f, 1f));
+        mat.SetColor("_AmbientLightColor", new Color(0.25f, 0.20f, 0.18f, 1f));
 
         // Luz direccional
         mat.SetVector("_DirLightDirection", new Vector4(45f, -30f, 0f, 0f));
-        mat.SetColor("_DirLightColor",      new Color(1f, 1f, 0.95f, 1f));
-        mat.SetFloat("_DirLightIntensity",  0.4f);
+        mat.SetColor("_DirLightColor", new Color(1f, 1f, 0.95f, 1f));
+        mat.SetFloat("_DirLightIntensity", 0.4f);
 
         // Desactivar las otras
         mat.SetFloat("_PointLightIntensity", 0f);
@@ -63,18 +63,18 @@ public class BarroMaterialSwitcher : MonoBehaviour
     void SetBarroSpotLight()
     {
         // Ambiente
-        mat.SetColor("_AmbientLightColor",  new Color(0.25f, 0.20f, 0.18f, 1f));
+        mat.SetColor("_AmbientLightColor", new Color(0.25f, 0.20f, 0.18f, 1f));
 
         // Luz spot
-        mat.SetVector("_SpotLightPosition",  new Vector4(0f, 4f, 0f, 1f));
+        mat.SetVector("_SpotLightPosition", new Vector4(0f, 4f, 0f, 1f));
         mat.SetVector("_SpotLightDirection", new Vector4(0f, -1f, 0f, 0f));
-        mat.SetColor("_SpotLightColor",      Color.white);
-        mat.SetFloat("_SpotLightIntensity",  1.2f);
-        mat.SetFloat("_SpotLightRange",      12f);
-        mat.SetFloat("_SpotLightAngle",      30f);
+        mat.SetColor("_SpotLightColor", Color.white);
+        mat.SetFloat("_SpotLightIntensity", 1.2f);
+        mat.SetFloat("_SpotLightRange", 12f);
+        mat.SetFloat("_SpotLightAngle", 30f);
 
         // Desactivar las otras
-        mat.SetFloat("_DirLightIntensity",   0f);
+        mat.SetFloat("_DirLightIntensity", 0f);
         mat.SetFloat("_PointLightIntensity", 0f);
     }
 }
