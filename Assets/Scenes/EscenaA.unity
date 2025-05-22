@@ -623,6 +623,9 @@ GameObject:
   - component: {fileID: 763123460}
   - component: {fileID: 763123461}
   - component: {fileID: 763123462}
+  - component: {fileID: 763123463}
+  - component: {fileID: 763123464}
+  - component: {fileID: 763123465}
   m_Layer: 0
   m_Name: LightManager
   m_TagString: Untagged
@@ -723,6 +726,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teteraRenderer: {fileID: 1190785753}
+--- !u!114 &763123463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763123455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68804f5d833800488d9c9c2ba8fab93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teteraRenderer: {fileID: 1982099587}
+--- !u!114 &763123464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763123455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa99afb53df968745baf463cbf4e30e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teteraRenderer: {fileID: 956111523}
+--- !u!114 &763123465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763123455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813e2524c6d8ec441bdca8e7e35a859e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teteraRenderer: {fileID: 1284835618}
 --- !u!1001 &871332801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -959,6 +1001,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
+--- !u!137 &956111523 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
+  m_PrefabInstance: {fileID: 631567015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &960155183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1204,6 +1251,11 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
   m_PrefabInstance: {fileID: 1934926443}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &1284835618 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
+  m_PrefabInstance: {fileID: 934974477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &1558949044 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
@@ -1296,6 +1348,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
+--- !u!137 &1982099587 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
+  m_PrefabInstance: {fileID: 29020169}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1997002367
 PrefabInstance:
   m_ObjectHideFlags: 0
