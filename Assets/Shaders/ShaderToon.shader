@@ -2,34 +2,34 @@ Shader "ShaderToon"
 {
     Properties
     {
-        _MaterialColor            ("Material Color",           Color) = (1,1,1,1)
-        _SpecularColor            ("Specular Color",           Color) = (1,1,1,1)
-        _CoefMaterialSpecular     ("Coef Specular",            Range(0,1)) = 0.5
-        _CoefMaterialDiffuse      ("Coef Diffuse",             Range(0,1)) = 0.5
-        _Outline                  ("Outline Width",            Range(0,1)) = 0.05
+        _MaterialColor("Material Color",Color) = (1,1,1,1)
+        _SpecularColor("Specular Color",Color) = (1,1,1,1)
+        _CoefMaterialSpecular("Coef Specular",Range(0,1)) = 0.5
+        _CoefMaterialDiffuse("Coef Diffuse",Range(0,1)) = 0.5
+        _Outline("Outline Width",Range(0,1)) = 0.05
 
         // Ambient
-        _AmbientLightColor        ("Ambient Light Color",      Color) = (0.2,0.2,0.2,1)
-        _AmbientLightIntensity    ("Ambient Intensity",        Range(0,1)) = 0.5
+        _AmbientLightColor("Ambient Light Color",Color) = (0.2,0.2,0.2,1)
+        _AmbientLightIntensity("Ambient Intensity",Range(0,1)) = 0.5
 
         // Directional
-        _DirLightDirection        ("Directional Light Dir",    Vector) = (0,-1,0,0)
-        _DirLightColor            ("Directional Light Color",  Color)  = (1,1,1,1)
-        _DirLightIntensity        ("Directional Intensity",     Range(0,5)) = 1
+        _DirLightDirection("Directional Light Dir",Vector) = (0,-1,0,0)
+        _DirLightColor("Directional Light Color",  Color)  = (1,1,1,1)
+        _DirLightIntensity("Directional Intensity",Range(0,5)) = 1
 
         // Point
-        _PointLightPosition       ("Point Light Position",     Vector) = (0,1,0,1)
-        _PointLightColor          ("Point Light Color",        Color)  = (1,1,1,1)
-        _PointLightIntensity      ("Point Light Intensity",    Range(0,10)) = 1
-        _PointLightRange          ("Point Light Range",        Range(0.1,50))= 10
+        _PointLightPosition("Point Light Position",Vector) = (0,1,0,1)
+        _PointLightColor("Point Light Color",Color)  = (1,1,1,1)
+        _PointLightIntensity("Point Light Intensity",Range(0,10)) = 1
+        _PointLightRange("Point Light Range",Range(0.1,50))= 10
 
         // Spot
-        _SpotLightPosition        ("Spot Light Position",      Vector) = (0,1,0,1)
-        _SpotLightDirection       ("Spot Light Direction",     Vector) = (0,-1,0,0)
-        _SpotLightColor           ("Spot Light Color",         Color)  = (1,1,1,1)
-        _SpotLightIntensity       ("Spot Light Intensity",     Range(0,10)) = 1
-        _SpotLightRange           ("Spot Light Range",         Range(0.1,50))= 15
-        _SpotLightAngle           ("Spot Light Half-Angle",    Range(0,90)) = 30
+        _SpotLightPosition_w("Spot Light Position",Vector) = (0,1,0,1)
+        _SpotLightDirection_w("Spot Light Direction",Vector) = (0,-1,0,0)
+        _SpotLightColor("Spot Light Color",Color)  = (1,1,1,1)
+        _SpotLightIntensity("Spot Light Intensity",Range(0,10)) = 1
+        _SpotLightRange("Spot Light Range",Range(0.1,50))= 15
+        _SpotLightAngle("Spot Light Half-Angle",Range(0,90)) = 30
     }
 
     SubShader
@@ -79,13 +79,13 @@ Shader "ShaderToon"
             float4 _DirLightColor;
             float  _DirLightIntensity;
 
-            float4 _PointLightPosition;
+            float4 _PointLightPosition_w;
             float4 _PointLightColor;
             float  _PointLightIntensity;
             float  _PointLightRange;
 
-            float4 _SpotLightPosition;
-            float4 _SpotLightDirection;
+            float4 _SpotLightPosition_w;
+            float4 _SpotLightDirection_w;
             float4 _SpotLightColor;
             float  _SpotLightIntensity;
             float  _SpotLightRange;
@@ -139,10 +139,10 @@ Shader "ShaderToon"
 
                 // Point
                 {
-                    float3 toP = _PointLightPosition.xyz - i.worldPos;
+                    float3 toP = _PointLightPosition_w.xyz - i.worldPos;
                     float3 L  = normalize(toP);
                     float  Nl = max(dot(N, L), 0);
-                    float  att = ComputeAttenuation(_PointLightPosition.xyz, i.worldPos, _PointLightRange);
+                    float  att = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
                     diffAmt += ToonStep(Nl * _PointLightIntensity * att, _CoefMaterialDiffuse);
                     float3 H = normalize(L + V);
                     float Nh = max(dot(N, H), 0);
@@ -151,12 +151,12 @@ Shader "ShaderToon"
 
                 // Spot
                 {
-                    float3 toS = _SpotLightPosition.xyz - i.worldPos;
+                    float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
                     float3 L   = normalize(toS);
                     float  Nl  = max(dot(N, L), 0);
-                    float  cosA = dot(normalize(-_SpotLightDirection.xyz), L);
+                    float  cosA = dot(normalize(-_SpotLightDirection_w.xyz), L);
                     float  spot = step(cos(radians(_SpotLightAngle)), cosA);
-                    float  att = ComputeAttenuation(_SpotLightPosition.xyz, i.worldPos, _SpotLightRange) * spot;
+                    float  att = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spot;
                     diffAmt += ToonStep(Nl * _SpotLightIntensity * att, _CoefMaterialDiffuse);
                     float3 H = normalize(L + V);
                     float Nh = max(dot(N, H), 0);

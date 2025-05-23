@@ -7,7 +7,7 @@ Shader "ShaderCook_Torrance"
         _Roughness ("Roughness", Range(0,1)) = 0.5
 
         // Ambiente
-        _AmbientLightColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
+        _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
 
         // Directional
         _DirLightDirection ("Directional Light Dir", Vector)= (0,-1,0,0)
@@ -15,13 +15,13 @@ Shader "ShaderCook_Torrance"
         _DirLightIntensity ("Directional Intensity", Range(0,5)) = 1
 
         // Point
-        _PointLightPosition ("Point Light Position", Vector)= (0,1,0,1)
+        _PointLightPosition_w ("Point Light Position", Vector)= (0,1,0,1)
         _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
         _PointLightIntensity ("Point Light Intensity", Range(0,10))= 1
         _PointLightRange ("Point Light Range", Range(0.1,50))= 10
 
         // Spot
-        _SpotLightPosition ("Spot Light Position", Vector)= (0,1,0,1)
+        _SpotLightPosition_w ("Spot Light Position", Vector)= (0,1,0,1)
         _SpotLightDirection ("Spot Light Direction", Vector)= (0,-1,0,0)
         _SpotLightColor ("Spot Light Color", Color) = (1,1,1,1)
         _SpotLightIntensity ("Spot Light Intensity", Range(0,10))= 1
@@ -47,7 +47,7 @@ Shader "ShaderCook_Torrance"
             float  _Roughness;
 
             // Ambient
-            float4 _AmbientLightColor;
+            float4 _AmbientColor;
 
             // Directional
             float4 _DirLightDirection;
@@ -55,13 +55,13 @@ Shader "ShaderCook_Torrance"
             float  _DirLightIntensity;
 
             // Point
-            float4 _PointLightPosition;
+            float4 _PointLightPosition_w;
             float4 _PointLightColor;
             float  _PointLightIntensity;
             float  _PointLightRange;
 
             // Spot
-            float4 _SpotLightPosition;
+            float4 _SpotLightPosition_w;
             float4 _SpotLightDirection;
             float4 _SpotLightColor;
             float  _SpotLightIntensity;
@@ -127,7 +127,7 @@ Shader "ShaderCook_Torrance"
                 float3 F0 = lerp(float3(0.04,0.04,0.04), _MaterialColor.rgb, _Metallic);
 
                 // Ambiente
-                float3 ambient = _AmbientLightColor.rgb * _MaterialColor.rgb;
+                float3 ambient = _AmbientColor.rgb * _MaterialColor.rgb;
 
                 float3 result = ambient;
 
@@ -152,7 +152,7 @@ Shader "ShaderCook_Torrance"
 
                 // Point Light 
                 {
-                    float3 toP = _PointLightPosition.xyz - i.worldPos;
+                    float3 toP = _PointLightPosition_w.xyz - i.worldPos;
                     float3 Lp = normalize(toP);
                     float NdotL = max(dot(N,Lp),0);
                     float3 H = normalize(V + Lp);
@@ -161,7 +161,7 @@ Shader "ShaderCook_Torrance"
                     float D = D_GGX(max(dot(N,H),0),_Roughness);
                     float G = G_SchlickGGX(max(dot(N,V),0),_Roughness) * G_SchlickGGX(NdotL,_Roughness);
 
-                    float att = ComputeAttenuation(_PointLightPosition.xyz, i.worldPos, _PointLightRange);
+                    float att = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
                     float3 spec = (D*G*F) / max(4*max(dot(N,V),0.001)*NdotL,0.001);
                     float3 diff = (1-F) * (_MaterialColor.rgb/UNITY_PI);
 
@@ -170,7 +170,7 @@ Shader "ShaderCook_Torrance"
 
                 // Spot Light 
                 {
-                    float3 toS = _SpotLightPosition.xyz - i.worldPos;
+                    float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
                     float3 Ls = normalize(toS);
                     float NdotL = max(dot(N,Ls),0);
                     float3 H = normalize(V + Ls);
@@ -183,7 +183,7 @@ Shader "ShaderCook_Torrance"
                     float D = D_GGX(max(dot(N,H),0),_Roughness);
                     float G = G_SchlickGGX(max(dot(N,V),0),_Roughness) * G_SchlickGGX(NdotL,_Roughness);
 
-                    float att = ComputeAttenuation(_SpotLightPosition.xyz, i.worldPos, _SpotLightRange) * spot;
+                    float att = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spot;
                     float3 spec = (D*G*F) / max(4*max(dot(N,V),0.001)*NdotL,0.001);
                     float3 diff = (1-F) * (_MaterialColor.rgb/UNITY_PI);
 

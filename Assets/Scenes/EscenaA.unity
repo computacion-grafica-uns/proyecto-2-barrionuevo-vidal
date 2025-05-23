@@ -477,7 +477,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c3e08db922dc33c498de649a7f37171a, type: 2}
+  - {fileID: 2100000, guid: f5c63d61c0aa7d049a0469089ec3d110, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -604,6 +604,75 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
   m_PrefabInstance: {fileID: 1997002367}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &673698538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 673698540}
+  - component: {fileID: 673698539}
+  m_Layer: 0
+  m_Name: LightManagerAux
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &673698539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673698538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158574a85601d964e9fcefe79b6f061d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posPointLight: {x: 0, y: 1, z: 0}
+  posSpotLight: {x: 0, y: 1, z: 0}
+  dirSpotLight: {x: 0, y: -1, z: 0}
+  dirDirectionalLight: {x: 0, y: -1, z: 0}
+  intensityPointLight: 0
+  intensitySpotLight: 0
+  intensityDirectionalLight: 1
+  pointLightRange: 1.2
+  spotLightRange: 7
+  spotLightAngle: 60
+  colorPointLight: {r: 1, g: 1, b: 1, a: 1}
+  colorSpotLight: {r: 1, g: 1, b: 1, a: 1}
+  colorDirectionalLight: {r: 1, g: 1, b: 1, a: 1}
+  materials:
+  - {fileID: 2100000, guid: b3fc224c029da424aba755d63eca05ad, type: 2}
+  - {fileID: 2100000, guid: c3e08db922dc33c498de649a7f37171a, type: 2}
+  - {fileID: 2100000, guid: b88d9ab6847a5614a9442bf6dbd1b190, type: 2}
+  - {fileID: 2100000, guid: f5c63d61c0aa7d049a0469089ec3d110, type: 2}
+  - {fileID: 2100000, guid: 1572744235705e6478d8841d20e5fbf5, type: 2}
+  - {fileID: 2100000, guid: 30c11cb8a8ae1864585b5e9119604c6f, type: 2}
+  - {fileID: 2100000, guid: 93dde5cde6b09b946acce9e0fc665915, type: 2}
+  - {fileID: 2100000, guid: 0fde244c88c65f141866e8e5d2f2f0e8, type: 2}
+  - {fileID: 2100000, guid: 712006b75e221774daf1bb682f222d46, type: 2}
+  - {fileID: 2100000, guid: 30f0de2aa1118c74b9a86664aa3ed686, type: 2}
+  - {fileID: 2100000, guid: 61cb2ea6dbb15b246b3d6a35011746e7, type: 2}
+--- !u!4 &673698540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673698538}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.09616923, y: 0.4508857, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &734267112 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
@@ -634,7 +703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &763123456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1614,3 +1683,4 @@ SceneRoots:
   - {fileID: 1396802484}
   - {fileID: 609156069}
   - {fileID: 763123457}
+  - {fileID: 673698540}
