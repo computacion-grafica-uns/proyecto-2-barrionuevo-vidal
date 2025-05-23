@@ -61,7 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientLightIntensity: 0.3
+    - _AmbientLightIntensity: 0.5
     - _BumpScale: 1
     - _CoefMaterialDiffuse: 0.2
     - _CoefMaterialSpecular: 0.8
@@ -79,6 +79,7 @@ Material:
     - _Parallax: 0.02
     - _PointLightIntensity: 0
     - _PointLightRange: 10
+    - _Shininess: 32
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpotLightAngle: 30
@@ -90,7 +91,7 @@ Material:
     - _WorldLightIntensity: 1
     - _ZWrite: 1
     m_Colors:
-    - _AmbientLightColor: {r: 0.02, g: 0.02, b: 0.02, a: 1}
+    - _AmbientLightColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DirLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _DirLightDirection: {r: 45, g: -30, b: 0, a: 0}

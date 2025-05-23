@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PhongPlasticMaterialSwitcher : MonoBehaviour
 {
-    [Tooltip("El Renderer de la tetera a modificar")]
     public Renderer teteraRenderer;
 
     private Material mat;
@@ -13,9 +12,14 @@ public class PhongPlasticMaterialSwitcher : MonoBehaviour
             teteraRenderer = GetComponent<Renderer>();
 
         mat = teteraRenderer.material;
+
         mat.SetColor("_MaterialColor", new Color(0.20f, 0.50f, 1f, 1f));
         mat.SetColor("_SpecularColor", new Color(1f, 1f, 1f, 1f));
         mat.SetFloat("_Shininess", 64f);
+        mat.SetFloat("Diffuse Coef", 1f);
+
+        // Ambiental
+        mat.SetColor("_AmbientLightColor", new Color(0.5f, 0.5f, 0.5f, 1f));
     }
 
     void Update()
@@ -30,9 +34,6 @@ public class PhongPlasticMaterialSwitcher : MonoBehaviour
 
     void SetPlasticPointLight()
     {
-        // Ambiental
-        mat.SetColor("_AmbientLightColor", new Color(0.5f, 0.5f, 0.5f, 1f));
-
         // Luz Puntual
         mat.SetVector("_PointLightPosition", new Vector4(0f, 4f, 3f, 1f));
         mat.SetColor("_PointLightColor",     new Color(1f, 1f, 1f, 1f));
@@ -46,9 +47,6 @@ public class PhongPlasticMaterialSwitcher : MonoBehaviour
 
     void SetPlasticDirLight()
     {
-        // Ambiental
-        mat.SetColor("_AmbientLightColor", new Color(0.15f, 0.15f, 0.15f, 1f));
-
         // Luz Direccional
         mat.SetVector("_DirLightDirection", new Vector4(45f, -30f, 0f, 0f));
         mat.SetColor("_DirLightColor",      new Color(1f, 1f, 1f, 1f));
@@ -61,9 +59,6 @@ public class PhongPlasticMaterialSwitcher : MonoBehaviour
 
     void SetPlasticSpotLight()
     {
-        // Ambiental
-        mat.SetColor("_AmbientLightColor", new Color(0.15f, 0.15f, 0.15f, 1f));
-
         // Luz Spot
         mat.SetVector("_SpotLightPosition",  new Vector4(0f, 4f, 3f, 1f));
         mat.SetVector("_SpotLightDirection", new Vector4(0f, -1f, 0f, 0f));

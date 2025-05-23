@@ -15,8 +15,12 @@ public class ToonPlasticSwitcher : MonoBehaviour
         // Base Plástico Satinado (celeste)
         mat.SetColor("_MaterialColor", new Color(0.20f, 0.50f, 1.00f, 1f));
         mat.SetColor("_SpecularColor", Color.white);
-        mat.SetFloat("_CoefMaterialDiffuse",  0.6f);
-        mat.SetFloat("_CoefMaterialSpecular", 0.8f);
+        mat.SetFloat("_CoefMaterialDiffuse", 0.1f);
+        mat.SetFloat("_CoefMaterialSpecular", 1f);
+        
+        // Ambiente suave cálido
+        mat.SetColor("_AmbientLightColor", new Color(0.5f, 0.5f, 0.5f, 1f));
+        mat.SetFloat("_AmbientLightIntensity", 0.5f);
     }
 
     void Update()
@@ -31,10 +35,6 @@ public class ToonPlasticSwitcher : MonoBehaviour
 
     void SetPlasticPoint()
     {
-        // Ambiente suave para plástico
-        mat.SetColor("_AmbientLightColor", new Color(0.10f, 0.10f, 0.12f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.5f);
-
         // Luz puntual por encima de (6,0,3)
         mat.SetVector("_PointLightPosition", new Vector4(6f, 4f, 3f, 1f));
         mat.SetColor("_PointLightColor", Color.white);
@@ -48,10 +48,6 @@ public class ToonPlasticSwitcher : MonoBehaviour
 
     void SetPlasticDir()
     {
-        // Ambiente tenue
-        mat.SetColor("_AmbientLightColor", new Color(0.05f, 0.05f, 0.06f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.4f);
-
         // Luz direccional suave
         mat.SetVector("_DirLightDirection", new Vector4(45f, -30f, 0f, 0f));
         mat.SetColor("_DirLightColor", Color.white);
@@ -64,10 +60,6 @@ public class ToonPlasticSwitcher : MonoBehaviour
 
     void SetPlasticSpot()
     {
-        // Ambiente medio
-        mat.SetColor("_AmbientLightColor", new Color(0.08f, 0.08f, 0.10f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.45f);
-
         // Luz spot centrada en (6,0,3)
         mat.SetVector("_SpotLightPosition", new Vector4(6f, 4f, 3f, 1f));
         mat.SetVector("_SpotLightDirection", new Vector4(0f, -1f, 0f, 0f));

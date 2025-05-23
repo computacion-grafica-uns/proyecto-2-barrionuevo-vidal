@@ -10,10 +10,16 @@ public class PhongMetalPulidoSwitcher : MonoBehaviour
     {
         if (teteraRenderer == null)
             teteraRenderer = GetComponent<Renderer>();
+
         mat = teteraRenderer.material;
-        mat.SetColor("_MaterialColor",  new Color(0.7f, 0.7f, 0.7f, 1f));
+
+        mat.SetColor("_MaterialColor", new Color(0.7f, 0.7f, 0.7f, 1f));
         mat.SetColor("_SpecularColor", Color.white);
         mat.SetFloat("_Shininess", 200f);
+        mat.SetFloat("Diffuse Coef", 1f);
+        
+        // Ambiental
+        mat.SetColor("_AmbientLightColor", new Color(0.5f, 0.5f, 0.5f, 1f));
     }
 
     void Update()
@@ -28,9 +34,6 @@ public class PhongMetalPulidoSwitcher : MonoBehaviour
 
     void SetMetalPulidoPoint()
     {
-        // Ambiental
-        mat.SetColor("_AmbientLightColor", new Color(0.2f, 0.2f, 0.2f, 1f));
-
         // Luz Puntual
         mat.SetVector("_PointLightPosition", new Vector4(0f, 4f, 6f, 1f));
         mat.SetColor("_PointLightColor", Color.white);
@@ -44,9 +47,6 @@ public class PhongMetalPulidoSwitcher : MonoBehaviour
 
     void SetMetalPulidoDir()
     {
-        // Ambiental
-        mat.SetColor("_AmbientLightColor", new Color(0.2f, 0.2f, 0.2f, 1f));
-
         // Luz Direccional
         mat.SetVector("_DirLightDirection", new Vector4(45f, -30f, 0f, 0f));
         mat.SetColor("_DirLightColor", Color.white);
@@ -58,10 +58,7 @@ public class PhongMetalPulidoSwitcher : MonoBehaviour
     }
 
     void SetMetalPulidoSpot()
-    {   
-        // Ambiental
-        mat.SetColor("_AmbientLightColor", new Color(0.2f, 0.2f, 0.2f, 1f));
-
+    {
         // Luz Spot
         mat.SetVector("_SpotLightPosition",  new Vector4(0f, 4f, 6f, 1f));
         mat.SetVector("_SpotLightDirection", new Vector4(0f, -1f, 0f, 0f));

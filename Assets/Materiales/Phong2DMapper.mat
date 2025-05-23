@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ToonBarro
-  m_Shader: {fileID: 4800000, guid: 04766b486e232fe449ff38267c01e908, type: 3}
+  m_Name: Phong2DMapper
+  m_Shader: {fileID: 4800000, guid: d6f8f3a1dfc166f46aa1cbe209c8a50c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8b7001f1855ce4c46bddfc7d03cd9ee7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -61,13 +61,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientLightIntensity: 0.5
     - _BumpScale: 1
-    - _CoefMaterialDiffuse: 0.5
-    - _CoefMaterialSpecular: 0.3
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DirLightIntensity: 1.2
+    - _DiffuseCoef: 1
+    - _DirLightIntensity: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -75,33 +73,30 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Outline: 0.5
     - _Parallax: 0.02
     - _PointLightIntensity: 0
     - _PointLightRange: 10
+    - _Shininess: 64
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpotLightAngle: 30
     - _SpotLightIntensity: 0
     - _SpotLightRange: 15
     - _SrcBlend: 1
-    - _Threshold: 0.406
     - _UVSec: 0
-    - _WorldLightIntensity: 1
     - _ZWrite: 1
     m_Colors:
-    - _AmbientLightColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _AmbientLightColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DirLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DirLightColor: {r: 1, g: 0.95, b: 0.9, a: 1}
     - _DirLightDirection: {r: 45, g: -30, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MaterialColor: {r: 0.6, g: 0.3, b: 0.15, a: 1}
+    - _MaterialColor: {r: 1, g: 1, b: 1, a: 1}
     - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _PointLightPosition: {r: 0, g: 1, b: 0, a: 1}
-    - _PointLightPosition_w: {r: 6, g: 1, b: 0, a: 1}
-    - _SpecularColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+    - _PointLightPosition: {r: 0, g: 3, b: 3, a: 1}
+    - _PointLightPosition_w: {r: 0, g: 2, b: 0, a: 1}
+    - _SpecularColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     - _SpotLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpotLightDirection: {r: 0, g: -1, b: 0, a: 0}
-    - _SpotLightPosition: {r: 0, g: 1, b: 0, a: 1}
-    - _WorldLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpotLightPosition: {r: 9, g: 4, b: 0, a: 1}
   m_BuildTextureStacks: []

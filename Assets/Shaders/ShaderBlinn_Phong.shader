@@ -1,16 +1,17 @@
-Shader "ShaderPhong"
+Shader "ShaderBlinn_Phong"
 {
     Properties
     {
         _MaterialColor("Material Color",Color) = (1,1,1,1)
         _SpecularColor("Specular Color",Color) = (1,1,1,1)
         _Shininess("Shininess (Gloss)", Range(1,500)) = 32
+        _DiffuseCoef ("Diffuse Coef", Range(0,1)) = 1
 
         // Ambiente
         _AmbientLightColor("Ambient Light Color",Color) = (1,1,1,1)
 
         // Luz puntual
-        _PointLightPosition_w("Light Position", Vector) = (0,2,0,1)
+        _PointLightPosition_w("Point Light Position", Vector) = (0,2,0,1)
         _PointLightColor("PointLight", Color) = (1,1,1,1)
         _PointLightIntensity("Point Light Intensity", Range(0,10)) = 1.0
         _PointLightRange    ("Point Light Range", Range(0.1,50)) = 10
@@ -44,6 +45,7 @@ Shader "ShaderPhong"
             float4 _MaterialColor;
             float4 _SpecularColor;
             float  _Shininess;
+            float _DiffuseCoef;
 
             float4 _AmbientLightColor;
 
@@ -51,7 +53,7 @@ Shader "ShaderPhong"
             float4 _DirLightColor;
             float  _DirLightIntensity;
 
-            float4 _PointLightPosition;
+            float4 _PointLightPosition_w;
             float4 _PointLightColor;
             float  _PointLightIntensity;
             float  _PointLightRange;
@@ -103,38 +105,36 @@ Shader "ShaderPhong"
                 float  Nld = max(0, dot(N, Ld));
                 float3 Rld = reflect(-Ld, N);
                 float  Sld = pow(max(dot(Rld, V), 0), _Shininess);
-                float3 diffD = _DirLightColor.rgb * _DirLightIntensity * Nld * _MaterialColor.rgb;
+                float3 diffD = _DirLightColor.rgb * _DirLightIntensity * Nld * _DiffuseCoef * _MaterialColor.rgb;
                 float3 specD = _DirLightColor.rgb * _DirLightIntensity * Sld * _SpecularColor.rgb;
 
                 // Puntual
-                float3 toP = _PointLightPosition.xyz - i.worldPos;
+                float3 toP = _PointLightPosition_w.xyz - i.worldPos;
                 float3 Lp  = normalize(toP);
                 float  Nlp = max(0, dot(N, Lp));
                 float3 Rlp = reflect(-Lp, N);
                 float  Slp = pow(max(dot(Rlp, V), 0), _Shininess);
-                float  attP = ComputeAttenuation(_PointLightPosition.xyz, i.worldPos, _PointLightRange);
-                float3 diffP = _PointLightColor.rgb * _PointLightIntensity * attP * Nlp * _MaterialColor.rgb;
+                float  attP = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
+                float3 diffP = _PointLightColor.rgb * _PointLightIntensity * attP * Nlp * _DiffuseCoef * _MaterialColor.rgb;
                 float3 specP = _PointLightColor.rgb * _PointLightIntensity * attP * Slp * _SpecularColor.rgb;
 
                 // Spot
                 float3 toS = _SpotLightPosition.xyz - i.worldPos;
                 float3 Ls  = normalize(toS);
-                float  Nls = max(0, dot(N, Ls));
+                float Nls = max(0, dot(N, Ls));
                 float3 Rls = reflect(-Ls, N);
-                float  Sls = pow(max(dot(Rls, V), 0), _Shininess);
-                float  cosAngle = dot(normalize(-_SpotLightDirection.xyz), Ls);
-                float  cutoff = cos(radians(_SpotLightAngle));
+                float Sls = pow(max(dot(Rls, V), 0), _Shininess);
+                float cosAngle = dot(normalize(-_SpotLightDirection.xyz), Ls);
+                float cutoff = cos(radians(_SpotLightAngle));
                 float inner = cos(radians(_SpotLightAngle * 0.8));
                 float outer = cos(radians(_SpotLightAngle));
                 float spotFactor = smoothstep(outer, inner, cosAngle);
                 float  attS = ComputeAttenuation(_SpotLightPosition.xyz, i.worldPos, _SpotLightRange) * spotFactor;
-                float3 diffS = _SpotLightColor.rgb * _SpotLightIntensity * attS * Nls * _MaterialColor.rgb;
+                float3 diffS = _SpotLightColor.rgb * _SpotLightIntensity * attS * Nls * _DiffuseCoef * _MaterialColor.rgb;
                 float3 specS = _SpotLightColor.rgb * _SpotLightIntensity * attS * Sls * _SpecularColor.rgb;
-
-                float3 col = ambient + diffD + specD + diffP + specP + diffS + specS;
-
-                return float4(col, 1);
                 
+                float3 col = ambient + diffD + specD + diffP + specP + diffS + specS;
+                return float4(col, 1); 
             }
             ENDCG
         }

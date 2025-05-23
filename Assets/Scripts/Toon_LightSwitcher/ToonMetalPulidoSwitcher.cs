@@ -17,6 +17,10 @@ public class ToonMetalPulidoSwitcher : MonoBehaviour
         mat.SetColor("_SpecularColor", Color.white);
         mat.SetFloat("_CoefMaterialDiffuse", 0.2f);  // poco diffuse
         mat.SetFloat("_CoefMaterialSpecular", 0.8f);  // alto specular
+
+        // Ambiente suave cálido
+        mat.SetColor("_AmbientLightColor", new Color(0.5f, 0.5f, 0.5f, 1f));
+        mat.SetFloat("_AmbientLightIntensity", 0.5f);
     }
 
     void Update()
@@ -31,10 +35,6 @@ public class ToonMetalPulidoSwitcher : MonoBehaviour
 
     void SetMetalPoint()
     {
-        // Ambiente muy tenue para metal
-        mat.SetColor("_AmbientLightColor", new Color(0.02f, 0.02f, 0.02f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.3f);
-
         // Luz puntual sobre (6,0,6)
         mat.SetVector("_PointLightPosition", new Vector4(6f, 4f, 6f, 1f));
         mat.SetColor("_PointLightColor", Color.white);
@@ -48,10 +48,6 @@ public class ToonMetalPulidoSwitcher : MonoBehaviour
 
     void SetMetalDir()
     {
-        // Ambiente tenue
-        mat.SetColor("_AmbientLightColor", new Color(0.02f, 0.02f, 0.02f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.3f);
-
         // Luz direccional
         mat.SetVector("_DirLightDirection", new Vector4(45f, -30f, 0f, 0f));
         mat.SetColor("_DirLightColor", Color.white);
@@ -64,10 +60,6 @@ public class ToonMetalPulidoSwitcher : MonoBehaviour
 
     void SetMetalSpot()
     {
-        // Ambiente muy tenue
-        mat.SetColor("_AmbientLightColor", new Color(0.02f, 0.02f, 0.02f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.3f);
-
         // Luz spot sobre (6,0,6)
         mat.SetVector("_SpotLightPosition", new Vector4(6f, 4f, 6f, 1f));
         mat.SetVector("_SpotLightDirection", new Vector4(0f, -1f, 0f, 0f));

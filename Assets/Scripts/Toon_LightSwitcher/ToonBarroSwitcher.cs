@@ -17,6 +17,10 @@ public class ToonBarroSwitcher : MonoBehaviour
         mat.SetColor("_SpecularColor", new Color(0.10f, 0.10f, 0.10f, 1f)); // reflejo muy bajo
         mat.SetFloat("_CoefMaterialDiffuse", 0.5f);
         mat.SetFloat("_CoefMaterialSpecular", 0.3f);
+
+        // Ambiente suave cálido
+        mat.SetColor("_AmbientLightColor", new Color(0.5f, 0.5f, 0.5f, 1f));
+        mat.SetFloat("_AmbientLightIntensity", 0.5f);
     }
 
     void Update()
@@ -31,10 +35,6 @@ public class ToonBarroSwitcher : MonoBehaviour
 
     void SetBarroPoint()
     {
-        // Ambiente suave cálido
-        mat.SetColor("_AmbientLightColor", new Color(0.20f, 0.15f, 0.10f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.5f);
-
         // Luz puntual sobre (6,0,0)
         mat.SetVector("_PointLightPosition", new Vector4(6f, 4f, 0f, 1f));
         mat.SetColor("_PointLightColor", Color.white);
@@ -48,10 +48,6 @@ public class ToonBarroSwitcher : MonoBehaviour
 
     void SetBarroDir()
     {
-        // Ambiente tenue
-        mat.SetColor("_AmbientLightColor", new Color(0.15f, 0.10f, 0.08f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.4f);
-
         // Luz direccional
         mat.SetVector("_DirLightDirection", new Vector4(45f, -30f, 0f, 0f));
         mat.SetColor("_DirLightColor", Color.white);
@@ -64,10 +60,6 @@ public class ToonBarroSwitcher : MonoBehaviour
 
     void SetBarroSpot()
     {
-        // Ambiente intermedio
-        mat.SetColor("_AmbientLightColor", new Color(0.18f, 0.14f, 0.10f, 1f));
-        mat.SetFloat("_AmbientLightIntensity", 0.45f);
-
         // Luz spot sobre (6,0,0)
         mat.SetVector("_SpotLightPosition", new Vector4(6f, 4f, 0f, 1f));
         mat.SetVector("_SpotLightDirection", new Vector4(0f, -1f, 0f, 0f));
