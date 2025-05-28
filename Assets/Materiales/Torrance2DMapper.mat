@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Phong2DMapper
-  m_Shader: {fileID: 4800000, guid: d6f8f3a1dfc166f46aa1cbe209c8a50c, type: 3}
+  m_Name: Torrance2DMapper
+  m_Shader: {fileID: 4800000, guid: 5c8c3dc3c5e1f9a47afdc8d4a5dd03fe, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f6af82c9195387d4da1da82a9a98a9ed, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2681d1319449e6a41b809c415dbd8436, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -76,6 +76,7 @@ Material:
     - _Parallax: 0.02
     - _PointLightIntensity: 0
     - _PointLightRange: 1.2
+    - _Roughness: 0.5
     - _Shininess: 64
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -97,6 +98,7 @@ Material:
     - _MaterialKa: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialKd: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialKs: {r: 1, g: 1, b: 1, a: 1}
+    - _MaterialTint: {r: 1, g: 1, b: 1, a: 1}
     - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _PointLightPosition: {r: 0, g: 3, b: 3, a: 1}
     - _PointLightPosition_w: {r: 0, g: 1, b: 0, a: 0}
