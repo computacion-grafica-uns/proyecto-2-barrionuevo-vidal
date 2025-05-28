@@ -5,8 +5,9 @@ using UnityEngine;
 public class LigthControlAux : MonoBehaviour
 {
     public Vector3 posPointLight, posSpotLight, dirSpotLight, dirDirectionalLight;
-    public float intensityPointLight, intensitySpotLight, intensityDirectionalLight,pointLightRange, spotLightRange,spotLightAngle;
-    public Color colorPointLight, colorSpotLight, colorDirectionalLight;
+    public float intensityPointLight, intensitySpotLight, intensityDirectionalLight,
+                pointLightRange, spotLightRange,spotLightAngle;
+    public Color colorPointLight, colorSpotLight, colorDirectionalLight, AmbientLightColor;
     public Material[] materials;
 
     public void Start()
@@ -19,13 +20,23 @@ public class LigthControlAux : MonoBehaviour
         ChangedValueSpotLight();
         ChangedValuePointLight();
         ChangedValueDirectionalLight();
+        ChangedValueAmbientLight();
         CheckControls();
+    }
+
+    private void ChangedValueAmbientLight()
+    {
+        foreach (Material material in materials)
+        {
+            material.SetColor("_AmbientColor", AmbientLightColor);
+        }
     }
 
     private void ChangedValuePointLight()
     {
         foreach (Material material in materials)
         {
+            material.SetVector("_AmbientColor", posPointLight);
             material.SetColor("_PointLightColor", colorPointLight);
             material.SetFloat("_PointLightIntensity", intensityPointLight);
             material.SetFloat("_PointLightRange", pointLightRange);
@@ -43,6 +54,7 @@ public class LigthControlAux : MonoBehaviour
             material.SetFloat("_SpotLightAngle", spotLightAngle);
             material.SetVector("_SpotLightDirection", dirSpotLight);
             material.SetVector("_SpotLightPosition_w", posSpotLight);
+            material.SetColor("_AmbientLightColor", AmbientLightColor);
         }
     }
 
@@ -68,6 +80,10 @@ public class LigthControlAux : MonoBehaviour
 
     private void ChangedLightPoint()
     {
+        intensityPointLight = 1;
+        intensitySpotLight = 0;
+        intensityDirectionalLight = 0;
+
         foreach (Material material in materials)
         {
             material.SetFloat("_PointLightIntensity", 1);
@@ -78,6 +94,10 @@ public class LigthControlAux : MonoBehaviour
 
     private void ChangedLightSpot()
     {
+        intensityPointLight = 0;
+        intensitySpotLight = 1;
+        intensityDirectionalLight = 0;
+
         foreach (Material material in materials)
         {
             material.SetFloat("_PointLightIntensity", 0);
@@ -88,6 +108,10 @@ public class LigthControlAux : MonoBehaviour
 
     private void ChangedLightDirectional()
     {
+        intensityPointLight = 0;
+        intensitySpotLight = 0;
+        intensityDirectionalLight = 1;
+
         foreach (Material material in materials)
         {
             material.SetFloat("_PointLightIntensity", 0);

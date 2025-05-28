@@ -938,6 +938,7 @@ MonoBehaviour:
   colorPointLight: {r: 1, g: 1, b: 1, a: 1}
   colorSpotLight: {r: 1, g: 1, b: 1, a: 1}
   colorDirectionalLight: {r: 1, g: 1, b: 1, a: 1}
+  AmbientLightColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5019608}
   materials:
   - {fileID: 2100000, guid: b3fc224c029da424aba755d63eca05ad, type: 2}
   - {fileID: 2100000, guid: c3e08db922dc33c498de649a7f37171a, type: 2}
