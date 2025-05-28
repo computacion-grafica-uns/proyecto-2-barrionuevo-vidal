@@ -2,13 +2,15 @@ Shader "ShaderBlinn_Phong"
 {
     Properties
     {
-        //propiedades del material
+        // Propiedades del material
         _Shininess("Shininess (Gloss)", Range(1,500)) = 32
         _MaterialKa("Material Ka", Vector) = (0,0,0,0)
         _MaterialKd("Material Kd", Vector) = (0,0,0,0)
-        _MaterialKs("Material Ks", Vector) = (0,0,0,0) 
+        _MaterialKs("Material Ks", Vector) = (0,0,0,0)
+
         // Ambiente
-        _AmbientColor("Ambient Light", Color) = (1,1,1,1)       
+        _AmbientColor("Ambient Light", Color) = (1,1,1,1)  
+             
         // Luz puntual
         _PointLightPosition_w("Point Light Position", Vector) = (0,2,0,1)
         _PointLightColor("PointLight", Color) = (1,1,1,1)
