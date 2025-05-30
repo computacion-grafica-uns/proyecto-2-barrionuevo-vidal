@@ -7,6 +7,7 @@ Shader "ShaderCook_Torrance"
         _MaterialKa ("Material Ka (Ambient)", Vector) = (0.2,0.2,0.2,1)
         _MaterialKd ("Material Kd (Diffuse)", Vector) = (1,1,1,1)
         _MaterialKs ("Material Ks (Specular)",Vector) = (1,1,1,1)
+        _F0 ("Valor F0", Vector) = (1,1,1,1)
 
         // Ambiente
         _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
@@ -48,6 +49,7 @@ Shader "ShaderCook_Torrance"
             float4 _MaterialKa;
             float4 _MaterialKd;
             float4 _MaterialKs;
+            float4 _F0;
 
             // Ambient Light
             float4 _AmbientColor;
@@ -94,7 +96,7 @@ Shader "ShaderCook_Torrance"
             // Fresnel Schlick
             float3 fresnelSchlick(float3 F0, float cosTheta)
             {
-                return F0 + (1 - F0) * pow(1 - cosTheta, 5);
+                return _F0 + (1 - F0) * pow(1 - cosTheta, 5);
             }
 
             // GGX Normal Distribution
@@ -127,9 +129,6 @@ Shader "ShaderCook_Torrance"
                 float3 N = normalize(i.worldNorm);
                 float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                // Base F0 = ks
-                float3 F0 = _MaterialKs.rgb;
-
                 // === Ambient term ===
                 float3 ambient = _AmbientColor.rgb * _MaterialKa.rgb;
                 float3 result = ambient;
@@ -143,7 +142,7 @@ Shader "ShaderCook_Torrance"
                     float NdotH = max(dot(N, H), 0);
                     float VdotH = max(dot(V, H), 0);
 
-                    float3 F = fresnelSchlick(F0, VdotH);
+                    float3 F = fresnelSchlick(_F0, VdotH);
                     float D = D_GGX(NdotH, _Roughness);
                     float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
 
@@ -161,7 +160,7 @@ Shader "ShaderCook_Torrance"
                     float3 H   = normalize(V + Lp);
                     float NdotV = max(dot(N, V), 0.001);
 
-                    float3 F = fresnelSchlick(F0, max(dot(V, H), 0));
+                    float3 F = fresnelSchlick(_F0, max(dot(V, H), 0));
                     float D = D_GGX(max(dot(N, H), 0), _Roughness);
                     float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
                     float att = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
@@ -184,7 +183,7 @@ Shader "ShaderCook_Torrance"
                     float att = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spot;
                     float NdotV = max(dot(N, V), 0.001);
 
-                    float3 F = fresnelSchlick(F0, max(dot(V, H), 0));
+                    float3 F = fresnelSchlick(_F0, max(dot(V, H), 0));
                     float D = D_GGX(max(dot(N, H), 0), _Roughness);
                     float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
                     float3 spec = (D * G * F) / max(4 * NdotV * NdotL, 0.001);
