@@ -10,6 +10,7 @@ Shader "ShaderCook_Torrance_Textura"
         _Roughness ("Roughness", Range(0.01,1)) = 0.5
         _MaterialKa ("Material Ka (Ambient)", Color) = (0.2,0.2,0.2,1)
         _MaterialKs ("Material Ks (Specular)",Color) = (0.04,0.04,0.04,1)
+        _F0 ("Valor F0", Vector) = (1,1,1,1)
 
         // Ambiente
         _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
@@ -54,6 +55,7 @@ Shader "ShaderCook_Torrance_Textura"
             float _Roughness;
             float4 _MaterialKa;
             float4 _MaterialKs;
+            float4 _F0;
 
             // Ambient Light
             float4 _AmbientColor;
@@ -139,9 +141,6 @@ Shader "ShaderCook_Torrance_Textura"
                 float3 N = normalize(i.worldNorm);
                 float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                // Base F0 from Ks
-                float3 F0 = _MaterialKs.rgb;
-
                 // === Ambient term ===
                 float3 ambient = _AmbientColor.rgb * _MaterialKa.rgb * albedo;
                 float3 result = ambient;
@@ -154,7 +153,7 @@ Shader "ShaderCook_Torrance_Textura"
                     float  NdotV = max(dot(N, V), 0.001);
                     float  VdotH = max(dot(V, H), 0);
 
-                    float3 F = fresnelSchlick(F0, VdotH);
+                    float3 F = fresnelSchlick(_F0, VdotH);
                     float  D = D_GGX(max(dot(N,H),0), _Roughness);
                     float  G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
 
@@ -172,7 +171,7 @@ Shader "ShaderCook_Torrance_Textura"
                     float3 H   = normalize(V + Lp);
                     float  NdotV = max(dot(N, V), 0.001);
 
-                    float3 F = fresnelSchlick(F0, max(dot(V, H), 0));
+                    float3 F = fresnelSchlick(_F0, max(dot(V, H), 0));
                     float  D = D_GGX(max(dot(N, H), 0), _Roughness);
                     float  G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
                     float  att = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
@@ -195,7 +194,7 @@ Shader "ShaderCook_Torrance_Textura"
                     float  att = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spot;
                     float  NdotV = max(dot(N, V), 0.001);
 
-                    float3 F = fresnelSchlick(F0, max(dot(V, H), 0));
+                    float3 F = fresnelSchlick(_F0, max(dot(V, H), 0));
                     float  D = D_GGX(max(dot(N, H), 0), _Roughness);
                     float  G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
                     float3 spec = (D * G * F) / max(4 * NdotV * NdotL, 0.001);

@@ -13,7 +13,7 @@ Shader "ShaderCook_Torrance"
         _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
 
         // Directional
-        _DirLightDirection ("Directional Light Dir", Vector)= (0,-1,0,0)
+        _DirLightDirection ("Directional Light Dir", Vector)= (2,-1,0,0)
         _DirLightColor ("Directional Light Color", Color) = (1,1,1,1)
         _DirLightIntensity ("Directional Intensity", Range(0,5)) = 1
 
@@ -21,15 +21,15 @@ Shader "ShaderCook_Torrance"
         _PointLightPosition_w ("Point Light Position", Vector)= (0,1,0,1)
         _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
         _PointLightIntensity ("Point Light Intensity", Range(0,10))= 1
-        _PointLightRange ("Point Light Range", Range(0.1,50))= 10
+        _PointLightRange ("Point Light Range", Range(0.1,50))= 20
 
         // Spot
         _SpotLightPosition_w ("Spot Light Position", Vector)= (0,1,0,1)
         _SpotLightDirection ("Spot Light Direction", Vector)= (0,-1,0,0)
         _SpotLightColor ("Spot Light Color", Color) = (1,1,1,1)
         _SpotLightIntensity ("Spot Light Intensity", Range(0,10)) = 1
-        _SpotLightRange ("Spot Light Range", Range(0.1,50))= 15
-        _SpotLightAngle ("Spot Light Half-Angle", Range(0,90)) = 30
+        _SpotLightRange ("Spot Light Range", Range(0.1,50))= 20
+        _SpotLightAngle ("Spot Light Half-Angle", Range(0,90)) = 25
     }
 
     SubShader

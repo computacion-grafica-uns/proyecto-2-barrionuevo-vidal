@@ -13,7 +13,7 @@ Shader "ShaderToon"
         _AmbientLightIntensity("Ambient Intensity",Range(0,1)) = 0.5
 
         // Directional
-        _DirLightDirection("Directional Light Dir",Vector) = (0,-1,0,0)
+        _DirLightDirection("Directional Light Dir",Vector) = (2,-1,0,0)
         _DirLightColor("Directional Light Color",  Color)  = (1,1,1,1)
         _DirLightIntensity("Directional Intensity",Range(0,5)) = 1
 
