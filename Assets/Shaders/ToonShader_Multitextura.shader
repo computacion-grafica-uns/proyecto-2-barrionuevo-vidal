@@ -1,67 +1,71 @@
-﻿Shader "Custom/Toon_MultiTexture2"
+﻿Shader "ToonShader_Multitextura"
 {
     Properties
     {
-        // ====================================================
-        // TEXTURAS MULTI: al menos dos mapas de color
-        // ====================================================
-        _MainTex       ("Albedo Texture 1",   2D)    = "white" {}
-        _MainTex_ST    ("",                   Vector) = (1,1,0,0)
+        // --------------------
+        // → Dos texturas de albedo:
+        //    _BaseTex: textura principal (albedo).
+        //    _DetailTex: segunda textura (puede servir como máscara o detalle).
+        //    _DetailMaskUV: escala de UV para la segunda textura (si quieres tiling distinto).
+        // --------------------
+        _BaseTex       ("Base (Albedo) Texture", 2D) = "white" {}
+        _DetailTex     ("Detail/Mix Texture (R = máscara)", 2D) = "white" {}
+        _DetailMaskUV  ("Detail UV Tiling", Vector)  = (1, 1, 0, 0)
 
-        _SecondTex     ("Albedo Texture 2",   2D)    = "white" {}
-        _SecondTex_ST  ("",                   Vector) = (1,1,0,0)
+        // Color Tint (modula albedo resultante)
+        _ColorTint     ("Tint Color", Color)          = (1, 1, 1, 1)
 
-        // Si quisieras controlar la mezcla con un parámetro:
-        // _BlendFactor   ("Blend Factor (0=Solo1, 1=Solo2)", Range(0,1)) = 0.5
+        // Umbral Toon (0..1)
+        _Threshold     ("Toon Threshold", Range(0,1)) = 0.6
 
-        // Especular (Toon-highlight)
-        _SpecColor     ("Specular Color",    Color) = (1,1,1,1)
+        // Color especular “toon”:
+        _SpecColor     ("Specular Color", Color)      = (1, 1, 1, 1)
 
-        // Umbral toon
-        _Threshold     ("Toon Threshold",    Range(0,1)) = 0.5
+        // Grosor del contorno:
+        _OutlineWidth  ("Outline Width", Range(0,0.1)) = 0.02
 
-        // Grosor de contorno
-        _OutlineWidth  ("Outline Width",     Range(0.0,0.2)) = 0.05
+        // --------------------
+        // → Iluminación: siempre fijos
+        // --------------------
+        // Ambiente
+        _AmbientColor        ("Ambient Light Color", Color) = (0.2, 0.2, 0.2, 1)
 
-        // Luz Ambiental (constante)
-        _AmbientColor  ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
+        // Direccional
+        _DirLightDirection   ("Directional Light Dir", Vector) = (2, -1, 0, 0)
+        _DirLightColor       ("Directional Light Color", Color)  = (1, 1, 1, 1)
+        _DirLightIntensity   ("Directional Intensity", Range(0,5)) = 1
 
-        // === Luz Direccional ===
-        _DirLightDirection  ("Directional Light Dir",    Vector) = (2,-1,0,0)
-        _DirLightColor      ("Directional Light Color",  Color)  = (1,1,1,1)
-        _DirLightIntensity  ("Directional Intensity",    Range(0,5)) = 1
+        // Puntual
+        _PointLightPosition_w("Point Light Position", Vector) = (0, 3, 0, 1)
+        _PointLightColor     ("Point Light Color", Color) = (1, 1, 1, 1)
+        _PointLightIntensity ("Point Light Intensity", Range(0,10)) = 1
+        _PointLightRange     ("Point Light Range", Range(0.1,50)) = 20
 
-        // === Luz Puntual ===
-        _PointLightPosition_w  ("Point Light Position", Vector) = (0,1,0,1)
-        _PointLightColor       ("Point Light Color",    Color)  = (1,1,1,1)
-        _PointLightIntensity   ("Point Light Intensity", Range(0,10)) = 1
-        _PointLightRange       ("Point Light Range",    Range(0.1,50)) = 20
-
-        // === Luz Spot ===
-        _SpotLightPosition_w   ("Spot Light Position",  Vector) = (0,1,0,1)
-        _SpotLightDirection    ("Spot Light Direction", Vector) = (0,-1,0,0)
-        _SpotLightColor        ("Spot Light Color",     Color)  = (1,1,1,1)
-        _SpotLightIntensity    ("Spot Light Intensity", Range(0,10)) = 1
-        _SpotLightRange        ("Spot Light Range",     Range(0.1,50)) = 20
-        _SpotLightAngle        ("Spot Light Half-Angle",Range(0,90)) = 25
+        // Spot
+        _SpotLightPosition_w ("Spot Light Position", Vector) = (0, 4, 0, 1)
+        _SpotLightDirection  ("Spot Light Direction", Vector) = (0, -1, 0, 0)
+        _SpotLightColor      ("Spot Light Color", Color) = (1, 1, 1, 1)
+        _SpotLightIntensity  ("Spot Light Intensity", Range(0,10)) = 1
+        _SpotLightRange      ("Spot Light Range", Range(0.1,50)) = 20
+        _SpotLightAngle      ("Spot Light Half-Angle", Range(0,90)) = 25
     }
 
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue"="Geometry" }
+        Tags { "RenderType" = "Opaque" }
         LOD 200
 
-        // ====================================================
-        // PASS 1: OUTLINE (contorno negro)
-        // ====================================================
+        // ======================
+        // 1) Primer pase → contorno
+        // ======================
         Pass
         {
             Name "Outline"
-            Tags { "LightMode"="Always" }
+            Tags { "LightMode" = "Always" }
 
-            Cull Front                // Cull front para que el desplazamiento genere contorno
+            Cull Front
             ZWrite On
-            ColorMask RGB             // Sólo escribimos RGB (no modificamos alpha)
+            ColorMask RGB
 
             CGPROGRAM
             #pragma vertex vertOutline
@@ -70,7 +74,7 @@
 
             float _OutlineWidth;
 
-            struct appdata_outline
+            struct appdata
             {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -81,29 +85,31 @@
                 float4 pos : SV_POSITION;
             };
 
-            v2f_outline vertOutline(appdata_outline v)
+            v2f_outline vertOutline(appdata v)
             {
                 v2f_outline o;
-                float3 worldN = UnityObjectToWorldNormal(v.normal);
-                float3 displaced = v.vertex.xyz + worldN * _OutlineWidth;
-                o.pos = UnityObjectToClipPos(float4(displaced,1.0));
+                // Expande el vértice hacia fuera usando la normal en espacio mundo
+                float3 worldNormal = UnityObjectToWorldNormal(v.normal);
+                float3 offsetPos   = v.vertex.xyz + worldNormal * _OutlineWidth;
+                o.pos = UnityObjectToClipPos(float4(offsetPos, 1));
                 return o;
             }
 
             fixed4 fragOutline(v2f_outline i) : SV_Target
             {
-                return float4(0,0,0,1);   // Contorno negro puro
+                // Dibujamos contorno negro siempre
+                return float4(0, 0, 0, 1);
             }
             ENDCG
         }
 
-        // ====================================================
-        // PASS 2: TOON SHADING + 2 TEXTURAS
-        // ====================================================
+        // ======================
+        // 2) Segundo pase → Toon shading con dos texturas
+        // ======================
         Pass
         {
             Name "ToonShading"
-            Tags { "LightMode"="ForwardBase" }
+            Tags { "LightMode" = "ForwardBase" }
 
             Cull Back
             ZWrite On
@@ -113,56 +119,60 @@
             #pragma fragment frag
             #include "UnityCG.cginc"
 
-            // ----- Texturas -----
-            sampler2D _MainTex;
-            float4   _MainTex_ST;
+            // ───────────────────────────────────────────────────────────────
+            // → TEXTURAS y sus coordenadas
+            sampler2D _BaseTex;
+            float4  _BaseTex_ST;       // no lo usamos, dejamos default
 
-            sampler2D _SecondTex;
-            float4   _SecondTex_ST;
+            sampler2D _DetailTex;
+            float4  _DetailMaskUV;     // x = tiling U, y = tiling V
 
-            // Si quisieras un parámetro de mezcla:
-            // float _BlendFactor;
+            // Tint general:
+            float4 _ColorTint;         // multiplica albedo final
 
-            // Especular toon
-            float4   _SpecColor;
-            float    _Threshold;
-            float    _OutlineWidth_UNUSED;
+            // → Toon parameters
+            float  _Threshold;         // umbral (0..1)
+            float4 _SpecColor;         // color destacado en especular
 
-            // Ambient
-            float4   _AmbientColor;
+            // → Iluminación
 
-            // Directional
-            float4   _DirLightDirection;
-            float4   _DirLightColor;
-            float    _DirLightIntensity;
+            // Ambiente
+            float4 _AmbientColor;
 
-            // Point
-            float4   _PointLightPosition_w;
-            float4   _PointLightColor;
-            float    _PointLightIntensity;
-            float    _PointLightRange;
+            // Direccional
+            float4 _DirLightDirection;
+            float4 _DirLightColor;
+            float  _DirLightIntensity;
+
+            // Puntual
+            float4 _PointLightPosition_w;
+            float4 _PointLightColor;
+            float  _PointLightIntensity;
+            float  _PointLightRange;
 
             // Spot
-            float4   _SpotLightPosition_w;
-            float4   _SpotLightDirection;
-            float4   _SpotLightColor;
-            float    _SpotLightIntensity;
-            float    _SpotLightRange;
-            float    _SpotLightAngle;
+            float4 _SpotLightPosition_w;
+            float4 _SpotLightDirection;
+            float4 _SpotLightColor;
+            float  _SpotLightIntensity;
+            float  _SpotLightRange;
+            float  _SpotLightAngle;
 
             struct appdata
             {
-                float4 vertex : POSITION;
-                float3 normal : NORMAL;
-                float2 uv     : TEXCOORD0;
+                float4 vertex  : POSITION;
+                float3 normal  : NORMAL;
+                float2 uvBase  : TEXCOORD0;  // UV para BaseTex (se asume 0..1)
+                float2 uvDetail: TEXCOORD1;  // UV para DetailTex (se asume 0..1)
             };
 
             struct v2f
             {
-                float4 pos      : SV_POSITION;
-                float3 worldPos : TEXCOORD0;
-                float3 worldNorm: TEXCOORD1;
-                float2 uv       : TEXCOORD2;
+                float4 pos       : SV_POSITION;
+                float3 worldPos  : TEXCOORD0;
+                float3 worldNorm : TEXCOORD1;
+                float2 uvBase    : TEXCOORD2;
+                float2 uvDetail  : TEXCOORD3;
             };
 
             v2f vert(appdata v)
@@ -171,113 +181,112 @@
                 o.pos       = UnityObjectToClipPos(v.vertex);
                 o.worldPos  = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.worldNorm = normalize(UnityObjectToWorldNormal(v.normal));
-                o.uv        = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uvBase    = v.uvBase;
+                // reescala las UV de la segunda textura con _DetailMaskUV.xy
+                o.uvDetail  = v.uvDetail * _DetailMaskUV.xy;
                 return o;
             }
 
-            // Atenuación punto/spot
+            // Función de attenuación (igual para punto y spot)
             float ComputeAttenuation(float3 lightPos, float3 worldPos, float range)
             {
-                float d = distance(lightPos, worldPos);
-                return saturate(1 - (d * d) / (range * range));
+                float dist = distance(lightPos, worldPos);
+                return saturate(1 - (dist * dist) / (range * range));
             }
 
-            // Toon step para difuso
-            float ToonDiffuseStep(float NdotL, float threshold)
+            // Función Toon para el componente difuso (dos niveles: clara u oscura)
+            float ToonDiffuseStep(float x, float threshold)
             {
-                return (NdotL > threshold) ? 1.0 : 0.3;
+                return (x > threshold) ? 1.0 : 0.3;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // Normal y vector “view”
+                // ─── 1) SAMPLEO de ambas texturas ──────────────────────────
+                float3 colBase   = tex2D(_BaseTex,   i.uvBase).rgb;
+                float3 colDetail = tex2D(_DetailTex, i.uvDetail).rgb;
+
+                // Supongamos que usamos el canal R de colDetail como “factor de mezcla” (0..1).
+                // Si quisieras usar el canal alfa, cambia “.r” por “.a”.
+                float  maskValue = colDetail.r;
+
+                // Color final del albedo antes de iluminación:
+                // mezcla colBase y colDetail. (Puedes cambiar la forma de mezcla si lo deseas)
+                float3 albedo = lerp(colBase, colDetail, maskValue);
+
+                // Aplica el tint general
+                albedo *= _ColorTint.rgb;
+
+                // ─── 2) vectores normales y VIEW ─────────────────────────
                 float3 N = normalize(i.worldNorm);
                 float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                // --- 1) OBTENER COLOR COMBINADO DE LAS 2 TEXTURAS ---
-                // Sample de ambas texturas
-                float3 color1 = tex2D(_MainTex, i.uv).rgb;
-                float3 color2 = tex2D(_SecondTex, i.uv).rgb;
+                // ─── 3) iluminación ambiente ─────────────────────────────
+                float3 colorOut = _AmbientColor.rgb * albedo;
 
-                // Simple mezcla multiplicativa (puedes cambiarlo a un LERP si quieres)
-                float3 albedo = color1 * color2;
-                // Ejemplo alternativo (LERP):
-                // float3 albedo = lerp(color1, color2, _BlendFactor);
-
-                // --- 2) AMBIENTAL ---
-                float3 ambient = _AmbientColor.rgb * albedo;
-                float3 colorOut = ambient;
-
-                // ======================
-                // --- LUZ DIRECCIONAL ---
-                // ======================
+                // ─── 4) Toon ilum. direccional ───────────────────────────
                 {
-                    float3 Ld = normalize(-_DirLightDirection.xyz);
+                    float3 Ld   = normalize(-_DirLightDirection.xyz);
                     float  NdotL = max(dot(N, Ld), 0);
-                    // Difuso toon
-                    float  diffFactor = ToonDiffuseStep(NdotL * _DirLightIntensity, _Threshold);
 
-                    // Especular toon (destello simple)
+                    // obtengo “blanco u oscuro” dependiendo del umbral
+                    float diffFactor = ToonDiffuseStep(NdotL * _DirLightIntensity, _Threshold);
+
+                    // specular “toon”
                     float3 H = normalize(Ld + V);
                     float  NdotH = max(dot(N, H), 0);
-                    float  specFactor = ((NdotH * _DirLightIntensity) > _Threshold) ? 1.0 : 0.0;
+                    float  specFactor = (NdotH * _DirLightIntensity > _Threshold) ? 1.0 : 0.0;
 
                     float3 diffD = _DirLightColor.rgb * _DirLightIntensity * diffFactor * albedo;
                     float3 specD = _DirLightColor.rgb * _DirLightIntensity * specFactor * _SpecColor.rgb;
-
                     colorOut += diffD + specD;
                 }
 
-                // ======================
-                // --- LUZ PUNTUAL ---
-                // ======================
+                // ─── 5) Toon ilum. puntual ───────────────────────────────
                 {
-                    float3 toP = _PointLightPosition_w.xyz - i.worldPos;
-                    float3 Lp  = normalize(toP);
+                    float3 toP   = _PointLightPosition_w.xyz - i.worldPos;
+                    float3 Lp    = normalize(toP);
                     float  NdotL = max(dot(N, Lp), 0);
 
                     float  attP = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
-                    float  diffFactorP = ToonDiffuseStep(NdotL * _PointLightIntensity * attP, _Threshold);
+                    float  diffFactor = ToonDiffuseStep(NdotL * _PointLightIntensity * attP, _Threshold);
 
                     float3 H = normalize(Lp + V);
                     float  NdotH = max(dot(N, H), 0);
-                    float  specFactorP = ((NdotH * _PointLightIntensity * attP) > _Threshold) ? 1.0 : 0.0;
+                    float  specFactor = ((NdotH * _PointLightIntensity * attP) > _Threshold) ? 1.0 : 0.0;
 
-                    float3 diffP = _PointLightColor.rgb * _PointLightIntensity * attP * diffFactorP * albedo;
-                    float3 specP = _PointLightColor.rgb * _PointLightIntensity * attP * specFactorP * _SpecColor.rgb;
-
+                    float3 diffP = _PointLightColor.rgb * _PointLightIntensity * attP * diffFactor * albedo;
+                    float3 specP = _PointLightColor.rgb * _PointLightIntensity * attP * specFactor * _SpecColor.rgb;
                     colorOut += diffP + specP;
                 }
 
-                // ======================
-                // --- LUZ SPOT ---
-                // ======================
+                // ─── 6) Toon ilum. spot ──────────────────────────────────
                 {
-                    float3 toS    = _SpotLightPosition_w.xyz - i.worldPos;
-                    float3 Ls     = normalize(toS);
-                    float  NdotL  = max(dot(N, Ls), 0);
+                    float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
+                    float3 Ls  = normalize(toS);
+                    float  NdotL = max(dot(N, Ls), 0);
 
-                    // Cálculo de “corte” angular del spot
-                    float cosAngle = dot(normalize(-_SpotLightDirection.xyz), Ls);
-                    float cutoff  = cos(radians(_SpotLightAngle));
-                    float spotF  = step(cutoff, cosAngle);
+                    // corte angular
+                    float  cosA  = dot(normalize(-_SpotLightDirection.xyz), Ls);
+                    float  cutoff= cos(radians(_SpotLightAngle));
+                    float  spotF = step(cutoff, cosA);
 
-                    float attS = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spotF;
-                    float diffFactorS = ToonDiffuseStep(NdotL * _SpotLightIntensity * attS, _Threshold);
+                    float  attS = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spotF;
+                    float  diffFactor = ToonDiffuseStep(NdotL * _SpotLightIntensity * attS, _Threshold);
 
                     float3 H = normalize(Ls + V);
                     float  NdotH = max(dot(N, H), 0);
-                    float  specFactorS = ((NdotH * _SpotLightIntensity * attS) > _Threshold) ? 1.0 : 0.0;
+                    float  specFactor = ((NdotH * _SpotLightIntensity * attS) > _Threshold) ? 1.0 : 0.0;
 
-                    float3 diffS = _SpotLightColor.rgb * _SpotLightIntensity * attS * diffFactorS * albedo;
-                    float3 specS = _SpotLightColor.rgb * _SpotLightIntensity * attS * specFactorS * _SpecColor.rgb;
-
+                    float3 diffS = _SpotLightColor.rgb * _SpotLightIntensity * attS * diffFactor * albedo;
+                    float3 specS = _SpotLightColor.rgb * _SpotLightIntensity * attS * specFactor * _SpecColor.rgb;
                     colorOut += diffS + specS;
                 }
 
-                return float4(colorOut, 1.0);
+                return float4(colorOut, 1);
             }
             ENDCG
         }
     }
+
 }

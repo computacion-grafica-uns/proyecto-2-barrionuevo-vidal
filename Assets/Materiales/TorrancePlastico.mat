@@ -64,7 +64,7 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DirLightIntensity: 0.75
+    - _DirLightIntensity: 0
     - _DstBlend: 0
     - _F0: 0.5
     - _GlossMapScale: 1
@@ -74,7 +74,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PointLightIntensity: 0
+    - _PointLightIntensity: 1
     - _PointLightRange: 20
     - _Roughness: 0.35
     - _SmoothnessTextureChannel: 0
