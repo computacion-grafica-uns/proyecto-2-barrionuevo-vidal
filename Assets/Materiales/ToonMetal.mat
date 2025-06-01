@@ -111,7 +111,7 @@ Material:
     - _PointLightPosition: {r: 6, g: 8, b: 2, a: 1}
     - _PointLightPosition_w: {r: 6, g: 8, b: 2, a: 0}
     - _PointPos: {r: 6, g: 10, b: 2, a: 1}
-    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpotColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpotDir: {r: 0, g: -1, b: 0, a: 0}

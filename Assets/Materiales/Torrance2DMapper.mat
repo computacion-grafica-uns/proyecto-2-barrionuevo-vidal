@@ -76,7 +76,7 @@ Material:
     - _Parallax: 0.02
     - _PointLightIntensity: 0
     - _PointLightRange: 20
-    - _Roughness: 0.8
+    - _Roughness: 0.5
     - _Shininess: 64
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -98,7 +98,7 @@ Material:
     - _MaterialColor: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialKa: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _MaterialKd: {r: 1, g: 1, b: 1, a: 1}
-    - _MaterialKs: {r: 0.05, g: 0.05, b: 0.05, a: 1}
+    - _MaterialKs: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialTint: {r: 1, g: 1, b: 1, a: 1}
     - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _PointLightPosition: {r: 6, g: 10, b: 2, a: 1}

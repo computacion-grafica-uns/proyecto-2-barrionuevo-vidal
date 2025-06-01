@@ -2,40 +2,44 @@ Shader "ShaderBlinn_Phong_Multitextura"
 {
     Properties
     {
-        // --- Multitexture maps ---
-        _AlbedoMap        ("Albedo (RGB)",           2D) = "white" {}
-        _HeightMap        ("Height (R)",             2D) = "black" {}
-        _NormalMap        ("Normal (XYZ)",           2D) = "bump"  {}
-        _RoughnessMap     ("Roughness (R)",          2D) = "white" {}
-        _MetallicMap      ("Metallic (R)",           2D) = "black" {}
-        _OcclusionMap     ("Occlusion (R)",          2D) = "white" {}
+        // Mapas multitextura (PBR)
+        _AlbedoMap ("Albedo (RGB)", 2D) = "white" {}
+        _NormalMap ("Normal Map", 2D) = "bump"  {}
+        _MetallicMap ("Metallic (R)", 2D) = "white" {}
+        _AOMap ("Ambient Occlusion (R)",2D) = "white" {}
+        _HeightMap ("Height Map (R)", 2D) = "black" {} 
 
-        // --- Base material coefs (fallbacks) ---
-        _BaseShininess    ("Shininess (Gloss)",      Range(1,500)) = 32
-        _BaseKa           ("Ambient Coef",           Range(0,1))   = 0.1
-        _BaseKs           ("Specular Coef",          Range(0,1))   = 0.5
+        // Parámetros Blinn-Phong “tradicionales”
+        _SpecularColor ("Specular Color", Color) = (1,1,1,1)
+        _Shininess ("Shininess (Gloss)", Range(1,500)) = 32
 
-        // --- Lights ---
-        _AmbientColor     ("Ambient Light Color",    Color)        = (1,1,1,1)
-        _DirLightDirection("Dir Light Direction",    Vector)       = (0,-1,0,0)
-        _DirLightColor    ("Dir Light Color",        Color)        = (1,1,1,1)
-        _DirLightIntensity("Dir Light Intensity",    Range(0,5))   = 1
-        _PointLightPosition("Point Light Position",  Vector)       = (0,2,0,1)
-        _PointLightColor  ("Point Light Color",      Color)        = (1,1,1,1)
-        _PointLightIntensity("Point Light Intensity",Range(0,10)) = 1
-        _PointLightRange  ("Point Light Range",      Range(0.1,50))= 10
-        _SpotLightPosition("Spot Light Position",    Vector)       = (0,3,0,1)
-        _SpotLightDirection("Spot Light Direction",  Vector)       = (0,-1,0,0)
-        _SpotLightColor   ("Spot Light Color",       Color)        = (1,1,1,1)
-        _SpotLightIntensity("Spot Light Intensity",  Range(0,10)) = 1
-        _SpotLightRange   ("Spot Light Range",       Range(0.1,50))= 15
-        _SpotLightAngle   ("Spot Light Half-Angle",  Range(0,90))  = 30
+        // Ambiente 
+        _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
+
+        // Directional
+        _DirLightDirection ("Directional Light Dir", Vector) = (2,-1,0,0)
+        _DirLightColor ("Directional Light Color", Color) = (1,1,1,1)
+        _DirLightIntensity ("Directional Intensity", Range(0,5)) = 1
+
+        // Point
+        _PointLightPosition_w ("Point Light Position", Vector) = (0,1,0,1)
+        _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
+        _PointLightIntensity ("Point Light Intensity", Range(0,10)) = 1
+        _PointLightRange ("Point Light Range", Range(0.1,50)) = 10
+
+        // Spot
+        _SpotLightPosition_w ("Spot Light Position", Vector) = (0,1,0,1)
+        _SpotLightDirection ("Spot Light Direction", Vector) = (0,-1,0,0)
+        _SpotLightColor ("Spot Light Color", Color) = (1,1,1,1)
+        _SpotLightIntensity ("Spot Light Intensity", Range(0,10)) = 1
+        _SpotLightRange ("Spot Light Range", Range(0.1,50)) = 15
+        _SpotLightAngle ("Spot Light Half-Angle", Range(0,90)) = 30
     }
 
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        LOD 300
+        LOD 200
 
         Pass
         {
@@ -44,25 +48,36 @@ Shader "ShaderBlinn_Phong_Multitextura"
             #pragma fragment frag
             #include "UnityCG.cginc"
 
-            // --- Textura y coordenadas ---
-            sampler2D _AlbedoMap, _HeightMap, _NormalMap;
-            sampler2D _RoughnessMap, _MetallicMap, _OcclusionMap;
-            float4   _AlbedoMap_ST, _HeightMap_ST, _NormalMap_ST;
-            float4   _RoughnessMap_ST, _MetallicMap_ST, _OcclusionMap_ST;
+            sampler2D _AlbedoMap;
+            sampler2D _NormalMap;
+            sampler2D _MetallicMap;
+            sampler2D _AOMap;
+            sampler2D _HeightMap;
 
-            // --- Material fallback ---
-            float    _BaseShininess;
-            float    _BaseKa;
-            float    _BaseKs;
+            float4 _SpecularColor;
+            float  _Shininess;
 
-            // --- Luces ---
+            // Ambiente 
             float4 _AmbientColor;
-            float4 _DirLightDirection, _DirLightColor;
+
+            // Luz direccional
+            float4 _DirLightDirection;
+            float4 _DirLightColor;
             float  _DirLightIntensity;
-            float4 _PointLightPosition, _PointLightColor;
-            float  _PointLightIntensity, _PointLightRange;
-            float4 _SpotLightPosition, _SpotLightDirection, _SpotLightColor;
-            float  _SpotLightIntensity, _SpotLightRange, _SpotLightAngle;
+
+            // Luz puntual
+            float4 _PointLightPosition_w;
+            float4 _PointLightColor;
+            float  _PointLightIntensity;
+            float  _PointLightRange;
+
+            // Luz spot
+            float4 _SpotLightPosition_w;
+            float4 _SpotLightDirection;
+            float4 _SpotLightColor;
+            float  _SpotLightIntensity;
+            float  _SpotLightRange;
+            float  _SpotLightAngle;
 
             struct appdata
             {
@@ -76,107 +91,174 @@ Shader "ShaderBlinn_Phong_Multitextura"
                 float4 pos       : SV_POSITION;
                 float3 worldPos  : TEXCOORD0;
                 float3 worldNorm : TEXCOORD1;
-                float2 uvAlbedo  : TEXCOORD2;
-                float2 uvHeight  : TEXCOORD3;
-                float2 uvNormal  : TEXCOORD4;
-                float2 uvRough   : TEXCOORD5;
-                float2 uvMetal   : TEXCOORD6;
-                float2 uvOcc     : TEXCOORD7;
+                float2 uv        : TEXCOORD2;
             };
 
             v2f vert(appdata v)
             {
                 v2f o;
-                o.pos       = UnityObjectToClipPos(v.vertex);
-                o.worldPos  = mul(unity_ObjectToWorld, v.vertex).xyz;
-                o.worldNorm = UnityObjectToWorldNormal(v.normal);
-                o.uvAlbedo  = TRANSFORM_TEX(v.uv, _AlbedoMap);
-                o.uvHeight  = TRANSFORM_TEX(v.uv, _HeightMap);
-                o.uvNormal  = TRANSFORM_TEX(v.uv, _NormalMap);
-                o.uvRough   = TRANSFORM_TEX(v.uv, _RoughnessMap);
-                o.uvMetal   = TRANSFORM_TEX(v.uv, _MetallicMap);
-                o.uvOcc     = TRANSFORM_TEX(v.uv, _OcclusionMap);
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.worldNorm = normalize(UnityObjectToWorldNormal(v.normal));
+                o.uv = v.uv;
                 return o;
             }
 
-            // Parallax simple
-            float2 ParallaxOffset(float2 uv, sampler2D hmap, float heightScale)
+            float ComputeAttenuation(float3 lightPos, float3 worldPos, float range)
             {
-                float h = tex2D(hmap, uv).r;
-                return uv + (h * heightScale) * normalize(float2(uv.x-0.5, uv.y-0.5));
-            }
-
-            float ComputeAttenuation(float3 lp, float3 wp, float range)
-            {
-                float d = distance(lp, wp);
-                return saturate(1 - (d*d)/(range*range));
+                float d = distance(lightPos, worldPos);
+                return saturate(1.0 - (d * d) / (range * range));
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // --- Parallax on UVs ---
-                float2 uvP = ParallaxOffset(i.uvHeight, _HeightMap, 0.05);
+                float3 normalT = tex2D(_NormalMap, i.uv).xyz * 2 - 1; 
+                normalT.xy *= float2(1,1); 
+                normalT = normalize(normalT);
 
-                // --- Albedo + Occlusion ---
-                float3 albedo    = tex2D(_AlbedoMap, uvP).rgb;
-                float  occ       = tex2D(_OcclusionMap, i.uvOcc).r;
-                albedo *= occ;
+                float3 dp1 = ddx(i.worldPos);
+                float3 dp2 = ddy(i.worldPos);
+                float2 duv1 = ddx(i.uv);
+                float2 duv2 = ddy(i.uv);
+                float3 T = normalize(dp1 * duv2.y - dp2 * duv1.y);
+                float3 B = normalize(cross(i.worldNorm, T));
+                float3 Nw = normalize(i.worldNorm);
+                float3x3 TBN = float3x3(T, B, Nw);
+                float3 surfNormal = normalize(mul(normalT, TBN));
 
-                // --- Normal map TBN (simple object -> world) ---
-                float3 nmap     = tex2D(_NormalMap, i.uvNormal).xyz * 2 - 1;
-                float3 N        = normalize(mul((float3x3)unity_ObjectToWorld, nmap));
-                float3 V        = normalize(_WorldSpaceCameraPos - i.worldPos);
+                // Height:
+                // Desplaza las UV en función del ángulo de vista y del canal de altura
+                float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos);
+                float h        = tex2D(_HeightMap, i.uv).r; 
+                float heightScale = 0.05;
+                float parallaxAmount = h * heightScale * viewDir.z;
+                float2 uvOffset = i.uv + viewDir.xy * parallaxAmount;
 
-                // --- Roughness & Metallic ---
-                float roughness = tex2D(_RoughnessMap, i.uvRough).r;
-                float metallic  = tex2D(_MetallicMap, i.uvMetal).r;
+                // Usaremos uvOffset para albedo, metallic y AO
+                float2 uvAlbedo   = uvOffset;
+                float2 uvMetallic = uvOffset;
+                float2 uvAO       = uvOffset;
 
-                // --- Compute phong coefs ---
-                float kd = 1 - metallic;            // approximated diffuse
-                float ks = lerp(_BaseKs, 1.0, metallic);
-                float shin = lerp(_BaseShininess, 8.0, roughness); 
+                // Muestreo multitextura:
+                float3 albedo   = tex2D(_AlbedoMap, uvAlbedo).rgb;
+                float  metallic = tex2D(_MetallicMap, uvMetallic).r;
+                float  ao       = tex2D(_AOMap, uvAO).r;
 
-                // --- Ambient ---
-                float3 ambient = _AmbientColor.rgb * _BaseKa * albedo;
+                // Vector de vista
+                float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                // --- Directional ---
-                float3 Ld = normalize(-_DirLightDirection.xyz);
-                float Nld = max(dot(N, Ld), 0);
-                float3 Rld = reflect(-Ld, N);
-                float Sld  = pow(max(dot(Rld, V), 0), shin);
-                float3 diffD = _DirLightColor.rgb * _DirLightIntensity * Nld * kd * albedo;
-                float3 specD = _DirLightColor.rgb * _DirLightIntensity * Sld * ks;
+                // Componente ambiental atenuada por AO
+                float3 ambientTerm = _AmbientColor.rgb * albedo * ao;
+                float3 colorOut = ambientTerm;
 
-                // --- Point ---
-                float3 toP  = _PointLightPosition.xyz - i.worldPos;
-                float3 Lp   = normalize(toP);
-                float Nlp   = max(dot(N, Lp), 0);
-                float3 Rlp  = reflect(-Lp, N);
-                float Slp   = pow(max(dot(Rlp, V), 0), shin);
-                float attP  = ComputeAttenuation(_PointLightPosition.xyz, i.worldPos, _PointLightRange);
-                float3 diffP= _PointLightColor.rgb * _PointLightIntensity * attP * Nlp * kd * albedo;
-                float3 specP= _PointLightColor.rgb * _PointLightIntensity * attP * Slp * ks;
+                // Luz Direccional
+                {
+                    float3 L = normalize(-_DirLightDirection.xyz);
+                    float  NdotL = max(dot(surfNormal, L), 0);
+                    if (NdotL > 0)
+                    {
+                        // Difuso (Lambert) atenuado por (1 – metallic)
+                        float3 diff = _DirLightColor.rgb 
+                                      * _DirLightIntensity 
+                                      * NdotL 
+                                      * albedo 
+                                      * (1 - metallic);
 
-                // --- Spot ---
-                float3 toS   = _SpotLightPosition.xyz - i.worldPos;
-                float3 Ls    = normalize(toS);
-                float Nls    = max(dot(N, Ls), 0);
-                float3 Rls   = reflect(-Ls, N);
-                float Sls    = pow(max(dot(Rls, V), 0), shin);
-                float cosA   = dot(normalize(-_SpotLightDirection.xyz), Ls);
-                float outer  = cos(radians(_SpotLightAngle));
-                float inner  = cos(radians(_SpotLightAngle * 0.8));
-                float spotF  = smoothstep(outer, inner, cosA);
-                float attS   = ComputeAttenuation(_SpotLightPosition.xyz, i.worldPos, _SpotLightRange) * spotF;
-                float3 diffS = _SpotLightColor.rgb * _SpotLightIntensity * attS * Nls * kd * albedo;
-                float3 specS = _SpotLightColor.rgb * _SpotLightIntensity * attS * Sls * ks;
+                        // Especular (Blinn-Phong)
+                        float3 H       = normalize(L + V);
+                        float  NdotH   = max(dot(surfNormal, H), 0);
+                        float  specFac = pow(NdotH, _Shininess);
 
-                // --- Final color ---
-                float3 col = ambient + diffD + specD + diffP + specP + diffS + specS;
-                return float4(col,1);
+                        // Color especular depende de metallic:
+                        // – Si metallic == 1: usamos albedo como color especular.
+                        // – Si metallic == 0: usamos _SpecularColor.
+                        float3 specCol = lerp(_SpecularColor.rgb, albedo, metallic);
+
+                        float3 spec = _DirLightColor.rgb 
+                                      * _DirLightIntensity 
+                                      * specFac 
+                                      * specCol 
+                                      * metallic;
+
+                        colorOut += diff + spec;
+                    }
+                }
+
+                // Luz Puntual
+                {
+                    float3 toP     = _PointLightPosition_w.xyz - i.worldPos;
+                    float3 L       = normalize(toP);
+                    float  distAtt = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
+                    float  NdotL   = max(dot(surfNormal, L), 0);
+                    if (NdotL > 0)
+                    {
+                        // Difuso
+                        float3 diff = _PointLightColor.rgb 
+                                      * _PointLightIntensity 
+                                      * distAtt 
+                                      * NdotL 
+                                      * albedo 
+                                      * (1 - metallic);
+
+                        // Especular
+                        float3 H       = normalize(L + V);
+                        float  NdotH   = max(dot(surfNormal, H), 0);
+                        float  specFac = pow(NdotH, _Shininess);
+                        float3 specCol = lerp(_SpecularColor.rgb, albedo, metallic);
+                        float3 spec    = _PointLightColor.rgb 
+                                         * _PointLightIntensity 
+                                         * distAtt 
+                                         * specFac 
+                                         * specCol 
+                                         * metallic;
+
+                        colorOut += diff + spec;
+                    }
+                }
+
+                // Luz Spot
+                {
+                    float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
+                    float3 L = normalize(toS);
+                    float distAtt = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange);
+
+                    // Filtrado del ángulo del spot
+                    float cosAngle = dot(normalize(-_SpotLightDirection.xyz), L);
+                    float cutoff = cos(radians(_SpotLightAngle));
+                    float spotFac = step(cutoff, cosAngle);
+
+                    float  NdotL = max(dot(surfNormal, L), 0);
+                    if (NdotL > 0 && spotFac > 0)
+                    {
+                        // Difuso
+                        float3 diff = _SpotLightColor.rgb 
+                                      * _SpotLightIntensity 
+                                      * distAtt 
+                                      * spotFac 
+                                      * NdotL 
+                                      * albedo 
+                                      * (1 - metallic);
+
+                        // Especular
+                        float3 H       = normalize(L + V);
+                        float  NdotH   = max(dot(surfNormal, H), 0);
+                        float  specFac = pow(NdotH, _Shininess);
+                        float3 specCol = lerp(_SpecularColor.rgb, albedo, metallic);
+                        float3 spec    = _SpotLightColor.rgb 
+                                         * _SpotLightIntensity 
+                                         * distAtt 
+                                         * spotFac 
+                                         * specFac 
+                                         * specCol 
+                                         * metallic;
+
+                        colorOut += diff + spec;
+                    }
+                }
+
+                return float4(colorOut, 1);
             }
             ENDCG
         }
     }
-    FallBack "Diffuse"
 }
