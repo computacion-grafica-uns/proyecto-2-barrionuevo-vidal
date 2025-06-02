@@ -8,26 +8,26 @@ Shader "ShaderBlinn_Phong_Textura"
         _MaterialKs ("Material Ks", Color) = (1,1,1,1)
         _Shininess ("Shininess (Gloss)", Range(1,500)) = 32
 
-        // Luz ambiente
-        _AmbientColor("Ambient Light", Color) = (0.1,0.1,0.1,1)
-
+        // Ambiente
+        _AmbientColor("Ambient Light Color", Color) = (1,1,1,1)  
+             
         // Luz puntual
         _PointLightPosition_w("Point Light Position", Vector) = (0,2,0,1)
         _PointLightColor("Point Light Color", Color) = (1,1,1,1)
         _PointLightIntensity("Point Light Intensity", Range(0,10)) = 1.0
-        _PointLightRange("Point Light Range", Range(0.1,50)) = 10
-
+        _PointLightRange ("Point Light Range", Range(0.1,50)) = 10
+        
         // Luz direccional
-        _DirLightDirection("Dir Light Direction", Vector) = (0,-1,0,0)
-        _DirLightColor("Dir Light Color", Color) = (1,1,1,1)
-        _DirLightIntensity("Dir Light Intensity", Range(0,5)) = 1
-
+        _DirLightDirection("Directional Light Dir",Vector) = (0,-1,0,0)
+        _DirLightColor("Directional Light Color",Color) = (1,1,1,1)
+        _DirLightIntensity("Directional Intensity",Range(0,5)) = 1
+        
         // Luz spot
         _SpotLightPosition_w("Spot Light Position", Vector) = (0,3,0,1)
         _SpotLightDirection("Spot Light Direction", Vector) = (0,-1,0,0)
-        _SpotLightColor("Spot Light Color", Color) = (1,1,1,1)
+        _SpotLightColor("Spot Light Color",Color) = (1,1,1,1)
         _SpotLightIntensity("Spot Light Intensity", Range(0,10)) = 1
-        _SpotLightRange("Spot Light Range", Range(0.1,50)) = 15
+        _SpotLightRange("Spot Light Range", Range(0.1,50))= 15
         _SpotLightAngle("Spot Light Half-Angle", Range(0,90)) = 30
     }
 
@@ -69,7 +69,7 @@ Shader "ShaderBlinn_Phong_Textura"
             struct appdata {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
-                float2 uv     : TEXCOORD0;
+                float2 uv : TEXCOORD0;
             };
 
             struct v2f {

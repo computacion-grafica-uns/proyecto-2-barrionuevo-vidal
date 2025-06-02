@@ -2,41 +2,39 @@ Shader "ToonShader_Textura"
 {
     Properties
     {
-        // ====================================================
-        // 1) Textura principal (Albedo)
-        _MainTex       ("Albedo Texture",    2D)    = "white" {}
-        _MainTex_ST    ("",                  Vector) = (1,1,0,0) 
+        // Textura principal (Albedo)
+        _MainTex ("Albedo Texture", 2D) = "white" {}
 
-        // 2) Colores especulares / base (se usarán junto a la textura)
-        _SpecColor     ("Specular Color",    Color) = (1,1,1,1) 
+        // Color especulares (se usarán junto a la textura)
+        _SpecColor ("Specular Color", Color) = (1,1,1,1) 
 
-        // 3) Umbral toon para difuso/especular (0..1)
-        _Threshold     ("Toon Threshold",    Range(0,1)) = 0.5
+        // Umbral toon para difuso/especular (0..1)
+        _Threshold ("Toon Threshold", Range(0,1)) = 0.5
 
-        // 4) Grosor del contorno
-        _OutlineWidth  ("Outline Width",     Range(0,0.2)) = 0.05
+        // Grosor del contorno
+        _OutlineWidth ("Outline Width", Range(0,0.2)) = 0.05
 
-        // 5) Luz ambiental: siempre misma
-        _AmbientColor  ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
+        // Luz ambiental: siempre misma
+        _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
 
-        // 6) Luz direccional
-        _DirLightDirection  ("Directional Light Dir",    Vector) = (2,-1,0,0)
-        _DirLightColor      ("Directional Light Color",  Color)  = (1,1,1,1)
-        _DirLightIntensity  ("Directional Intensity",    Range(0,5)) = 1
+        // Luz direccional
+        _DirLightDirection ("Directional Light Dir", Vector) = (2,-1,0,0)
+        _DirLightColor ("Directional Light Color", Color) = (1,1,1,1)
+        _DirLightIntensity ("Directional Intensity", Range(0,5)) = 1
 
-        // 7) Luz puntual
-        _PointLightPosition_w  ("Point Light Position", Vector) = (0,1,0,1)
-        _PointLightColor       ("Point Light Color",    Color)  = (1,1,1,1)
-        _PointLightIntensity   ("Point Light Intensity", Range(0,10)) = 1
-        _PointLightRange       ("Point Light Range",    Range(0.1,50)) = 20
+        // Luz puntual
+        _PointLightPosition_w ("Point Light Position", Vector) = (0,1,0,1)
+        _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
+        _PointLightIntensity ("Point Light Intensity", Range(0,10)) = 1
+        _PointLightRange ("Point Light Range", Range(0.1,50)) = 20
 
-        // 8) Luz spot
-        _SpotLightPosition_w   ("Spot Light Position",  Vector) = (0,1,0,1)
-        _SpotLightDirection   ("Spot Light Direction",  Vector) = (0,-1,0,0)
-        _SpotLightColor        ("Spot Light Color",     Color)  = (1,1,1,1)
-        _SpotLightIntensity    ("Spot Light Intensity", Range(0,10)) = 1
-        _SpotLightRange        ("Spot Light Range",     Range(0.1,50)) = 20
-        _SpotLightAngle        ("Spot Light Half-Angle",Range(0,90)) = 25
+        // Luz spot
+        _SpotLightPosition_w ("Spot Light Position",  Vector) = (0,1,0,1)
+        _SpotLightDirection ("Spot Light Direction",  Vector) = (0,-1,0,0)
+        _SpotLightColor ("Spot Light Color",     Color)  = (1,1,1,1)
+        _SpotLightIntensity ("Spot Light Intensity", Range(0,10)) = 1
+        _SpotLightRange ("Spot Light Range",     Range(0.1,50)) = 20
+        _SpotLightAngle ("Spot Light Half-Angle",Range(0,90)) = 25
     }
 
     SubShader
@@ -44,9 +42,6 @@ Shader "ToonShader_Textura"
         Tags { "RenderType"="Opaque" "Queue"="Geometry" }
         LOD 200
 
-        // ====================================================
-        // PASO 1: Dibujar el contorno (“outline”)
-        // ====================================================
         Pass
         {
             Name "Outline"
@@ -54,7 +49,7 @@ Shader "ToonShader_Textura"
 
             Cull Front                // Rellenar la parte de atrás para generar contorno negro
             ZWrite On
-            ColorMask RGB             // Sólo escribimos RGB (no modificamos alpha)
+            ColorMask RGB
 
             CGPROGRAM
             #pragma vertex vertOutline
@@ -93,9 +88,6 @@ Shader "ToonShader_Textura"
             ENDCG
         }
 
-        // ====================================================
-        // PASO 2: Toon shading + Textura
-        // ====================================================
         Pass
         {
             Name "ToonShading"
@@ -109,17 +101,13 @@ Shader "ToonShader_Textura"
             #pragma fragment frag
             #include "UnityCG.cginc"
 
-            // ––––––––––––––––––––––––––––––––––––––––––––––––––––––
-            // Variables (equivalentes a las Properties)
-            // ––––––––––––––––––––––––––––––––––––––––––––––––––––––
             sampler2D _MainTex;
-            float4   _MainTex_ST;
+            float4 _MainTex_ST;
 
-            float4   _SpecColor;      // Color del highlight especular
-            float    _Threshold;      // Umbral para difuso / especular
-            float4   _Color_UNUSED;   // (no se usa, puesto que tomamos color de _MainTex)
+            float4 _SpecColor;      // Color del highlight especular
+            float _Threshold;      // Umbral para difuso / especular
 
-            float _OutlineWidth;      // (no se usa en este pase)
+            float _OutlineWidth;
 
             // — Luz Ambiental —
             float4 _AmbientColor;
@@ -147,25 +135,24 @@ Shader "ToonShader_Textura"
             {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
-                float2 uv     : TEXCOORD0;
+                float2 uv : TEXCOORD0;
             };
 
             struct v2f
             {
-                float4 pos      : SV_POSITION;
+                float4 pos : SV_POSITION;
                 float3 worldPos : TEXCOORD0;
                 float3 worldNorm: TEXCOORD1;
-                float2 uv       : TEXCOORD2;
+                float2 uv : TEXCOORD2;
             };
 
-            // ––– VERTEX: calculamos posiciones / normales / UVs –
             v2f vert(appdata v)
             {
                 v2f o;
-                o.pos       = UnityObjectToClipPos(v.vertex);
-                o.worldPos  = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.worldNorm = normalize(UnityObjectToWorldNormal(v.normal));
-                o.uv        = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
 
@@ -183,23 +170,20 @@ Shader "ToonShader_Textura"
                 return (NdotL > threshold) ? 1.0 : 0.3;
             }
 
-            // ––– FRAGMENT: calculamos el color toon basado en textura + luces –––
             fixed4 frag(v2f i) : SV_Target
             {
-                // 1) Normalizamos vectores
+                // Normalizamos vectores
                 float3 N = normalize(i.worldNorm);
                 float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                // 2) Tomamos el color base desde la textura
+                // Tomamos el color base desde la textura
                 float3 albedo = tex2D(_MainTex, i.uv).rgb;
 
-                // 3) Componente ambiental
+                // Componente ambiental
                 float3 ambient = _AmbientColor.rgb * albedo;
                 float3 colorOut = ambient;
 
-                // ======================
-                // --- Directional Light ---
-                // ======================
+                // Luz direccional
                 {
                     float3 Ld = normalize(-_DirLightDirection.xyz);
                     float  NdotL = max(dot(N, Ld), 0);
@@ -216,9 +200,7 @@ Shader "ToonShader_Textura"
                     colorOut += diffD + specD;
                 }
 
-                // ======================
-                // --- Point Light ---
-                // ======================
+                // Luz Puntual
                 {
                     float3 toP = _PointLightPosition_w.xyz - i.worldPos;
                     float3 Lp = normalize(toP);
@@ -237,9 +219,7 @@ Shader "ToonShader_Textura"
                     colorOut += diffP + specP;
                 }
 
-                // ======================
-                // --- Spot Light ---
-                // ======================
+                // Luz Spot
                 {
                     float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
                     float3 Ls   = normalize(toS);

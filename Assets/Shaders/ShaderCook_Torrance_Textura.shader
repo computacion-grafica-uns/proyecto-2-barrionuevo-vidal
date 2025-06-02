@@ -13,26 +13,26 @@ Shader "ShaderCook_Torrance_Textura"
         _F0 ("Valor F0", Vector) = (1,1,1,1)
 
         // Ambiente
-        _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
-
-        // Directional
-        _DirLightDirection ("Directional Light Dir", Vector)= (0,-1,0,0)
-        _DirLightColor ("Directional Light Color", Color) = (1,1,1,1)
-        _DirLightIntensity ("Directional Intensity", Range(0,5)) = 1
-
-        // Point
-        _PointLightPosition_w ("Point Light Position", Vector)= (0,1,0,1)
-        _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
-        _PointLightIntensity ("Point Light Intensity", Range(0,10))= 1
-        _PointLightRange ("Point Light Range", Range(0.1,50))= 10
-
-        // Spot
-        _SpotLightPosition_w ("Spot Light Position", Vector)= (0,1,0,1)
-        _SpotLightDirection ("Spot Light Direction", Vector)= (0,-1,0,0)
-        _SpotLightColor ("Spot Light Color", Color) = (1,1,1,1)
-        _SpotLightIntensity ("Spot Light Intensity", Range(0,10)) = 1
-        _SpotLightRange ("Spot Light Range", Range(0.1,50)) = 15
-        _SpotLightAngle ("Spot Light Half-Angle", Range(0,90))  = 30
+        _AmbientColor("Ambient Light Color", Color) = (1,1,1,1)  
+             
+        // Luz puntual
+        _PointLightPosition_w("Point Light Position", Vector) = (0,2,0,1)
+        _PointLightColor("Point Light Color", Color) = (1,1,1,1)
+        _PointLightIntensity("Point Light Intensity", Range(0,10)) = 1.0
+        _PointLightRange ("Point Light Range", Range(0.1,50)) = 10
+        
+        // Luz direccional
+        _DirLightDirection("Directional Light Dir",Vector) = (0,-1,0,0)
+        _DirLightColor("Directional Light Color",Color) = (1,1,1,1)
+        _DirLightIntensity("Directional Intensity",Range(0,5)) = 1
+        
+        // Luz spot
+        _SpotLightPosition_w("Spot Light Position", Vector) = (0,3,0,1)
+        _SpotLightDirection("Spot Light Direction", Vector) = (0,-1,0,0)
+        _SpotLightColor("Spot Light Color",Color) = (1,1,1,1)
+        _SpotLightIntensity("Spot Light Intensity", Range(0,10)) = 1
+        _SpotLightRange("Spot Light Range", Range(0.1,50))= 15
+        _SpotLightAngle("Spot Light Half-Angle", Range(0,90)) = 30
     }
 
     SubShader
@@ -111,8 +111,8 @@ Shader "ShaderCook_Torrance_Textura"
             // GGX Normal Distribution
             float D_GGX(float NdotH, float roughness)
             {
-                float a    = roughness * roughness;
-                float a2   = a * a;
+                float a = roughness * roughness;
+                float a2 = a * a;
                 float denom = (NdotH * NdotH) * (a2 - 1) + 1;
                 return a2 / (UNITY_PI * denom * denom);
             }
@@ -141,11 +141,11 @@ Shader "ShaderCook_Torrance_Textura"
                 float3 N = normalize(i.worldNorm);
                 float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                // === Ambient term ===
+                // Ambient term 
                 float3 ambient = _AmbientColor.rgb * _MaterialKa.rgb * albedo;
                 float3 result = ambient;
 
-                // --- Directional Light ---
+                // Luz direccional
                 {
                     float3 Ld = normalize(-_DirLightDirection.xyz);
                     float3 H  = normalize(V + Ld);
@@ -163,7 +163,7 @@ Shader "ShaderCook_Torrance_Textura"
                     result += _DirLightColor.rgb * _DirLightIntensity * NdotL * (diff + spec);
                 }
 
-                // --- Point Light ---
+                // Luz puntual
                 {
                     float3 toP = _PointLightPosition_w.xyz - i.worldPos;
                     float3 Lp  = normalize(toP);
@@ -182,7 +182,7 @@ Shader "ShaderCook_Torrance_Textura"
                     result += _PointLightColor.rgb * _PointLightIntensity * att * NdotL * (diff + spec);
                 }
 
-                // --- Spot Light ---
+                // Luz spot
                 {
                     float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
                     float3 Ls = normalize(toS);

@@ -336,6 +336,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b2828c24904a673428116520433b6c50, type: 2}
     - target: {fileID: 919132149155446097, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Name
       value: pava19
@@ -668,7 +672,7 @@ MonoBehaviour:
   minPitch: -30
   maxPitch: 90
   zoomSpeed: 30
-  minFOV: 30
+  minFOV: 20
   maxFOV: 90
   heightCompensation: 0.5
   targetCamera: {fileID: 344266369}
@@ -982,6 +986,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 424a4f048b529514bb9de3c887e59dda, type: 2}
   - {fileID: 2100000, guid: a14b9e7a5a8cad54599c06e79fc273a8, type: 2}
   - {fileID: 2100000, guid: 4417f540beb224144aa8776cc30d10da, type: 2}
+  - {fileID: 2100000, guid: b2828c24904a673428116520433b6c50, type: 2}
 --- !u!1001 &835768721
 PrefabInstance:
   m_ObjectHideFlags: 0
