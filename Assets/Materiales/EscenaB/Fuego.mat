@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3e5bccdee772aba47bcad3c21b101c44, type: 3}
+        m_Texture: {fileID: 2800000, guid: 908c6753c59d9cc49a650e7d2175e864, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -75,12 +75,12 @@ Material:
     - _OutlineWidth: 0
     - _Parallax: 0.02
     - _PointLightIntensity: 1
-    - _PointLightRange: 100
+    - _PointLightRange: 15
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0
-    - _SpotLightRange: 20
+    - _SpotLightIntensity: 1
+    - _SpotLightRange: 15
     - _SrcBlend: 1
     - _Threshold: 0.8
     - _UVSec: 0
@@ -92,9 +92,9 @@ Material:
     - _DirLightDirection: {r: 2, g: -1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _PointLightPosition_w: {r: -1, g: 2, b: 0.6, a: 0}
+    - _PointLightPosition_w: {r: -1, g: 1, b: 0.6, a: 0}
     - _SpecColor: {r: 0.878, g: 0.606, b: 0, a: 1}
     - _SpotLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpotLightDirection: {r: 0, g: -1, b: 0, a: 0}
-    - _SpotLightPosition_w: {r: 6, g: 10, b: 2, a: 0}
+    - _SpotLightDirection: {r: -1, g: -1, b: 0.7, a: 0}
+    - _SpotLightPosition_w: {r: -0.1, g: 0.9, b: 0.05, a: 0}
   m_BuildTextureStacks: []
