@@ -5,17 +5,17 @@ using UnityEngine;
 public class EscenaB_LightSwitcher : MonoBehaviour
 {
     [Header("Light Transforms")]
-    public Vector3 posPointLight = new Vector3(-1f, 0.2f, 0.6f);
+    public Vector3 posPointLight = new Vector3(-1f, 1f, 0.6f);
     public Vector3 posSpotLight = new Vector3(-0.1f, 0.9f, 0.05f);
-    public Vector3 dirSpotLight = new Vector3(0f, -1f, 0f);
-    public Vector3 dirDirectionalLight = new Vector3(2f, -1f, 0f);
+    public Vector3 dirSpotLight = new Vector3(-1f, -1f, 0.7f);
+    public Vector3 dirDirectionalLight = new Vector3(5f, -2f, 0f);
 
     [Header("Intensities & Ranges")]
-    public float intensityPointLight = 1f;
-    public float intensitySpotLight = 0f;
-    public float intensityDirectionalLight = 0f;
-    public float pointLightRange = 20f;
-    public float spotLightRange = 20f;
+    public float intensityPointLight = 0.5f;
+    public float intensitySpotLight = 0.5f;
+    public float intensityDirectionalLight = 0.5f;
+    public float pointLightRange = -3f;
+    public float spotLightRange = 15f;
     public float spotLightAngle = 25f;
 
     [Header("Colors")]
@@ -50,14 +50,14 @@ public class EscenaB_LightSwitcher : MonoBehaviour
         switch (mode)
         {
             case LightMode.Point:
-                intensityPointLight = 1f;
+                intensityPointLight = 2f;
                 intensitySpotLight = 0f;
                 intensityDirectionalLight = 0f;
                 break;
             case LightMode.Directional:
                 intensityPointLight = 0f;
                 intensitySpotLight = 0f;
-                intensityDirectionalLight = 0.75f;
+                intensityDirectionalLight = 1f;
                 break;
             case LightMode.Spot:
                 intensityPointLight = 0f;

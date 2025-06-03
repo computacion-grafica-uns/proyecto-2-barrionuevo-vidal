@@ -68,7 +68,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DirLightInt: 0.8
-    - _DirLightIntensity: 0.75
+    - _DirLightIntensity: 0
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -80,7 +80,7 @@ Material:
     - _OutlineWidth: 0
     - _Parallax: 0.02
     - _PointInt: 0.4
-    - _PointLightIntensity: 0
+    - _PointLightIntensity: 1
     - _PointLightRange: 20
     - _PointRange: 15
     - _Shininess: 32
