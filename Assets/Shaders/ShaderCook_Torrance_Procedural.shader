@@ -1,25 +1,29 @@
-Shader "ShaderBlinn_Phong"
+Shader "ShaderCook_Torrance_Procedural"
 {
     Properties
     {
-        // Parámetros para simular AGUA
-        _Roughness ("Roughness", Range(0.01,1)) = 0.02
-        _MaterialKa ("Material Ka (Ambient)", Vector) = (0.01,0.01,0.02,1)
-        _MaterialKd ("Material Kd (Diffuse)", Vector) = (0.05,0.1,0.2,1)
-        _MaterialKs ("Material Ks (Specular)", Vector) = (0.8,0.9,1.0,1)
-        _F0 ("Valor F0", Vector) = (0.05,0.05,0.06,1)
+        // Propiedades del material
+        _Roughness ("Roughness", Range(0.01,1)) = 0.5
+        _MaterialKa ("Material Ka (Ambient)", Vector) = (0.2,0.2,0.2,1)
+        _MaterialKd ("Material Kd (Diffuse)", Vector) = (1,1,1,1)
+        _MaterialKs ("Material Ks (Specular)",Vector) = (1,1,1,1)
+        _F0 ("Valor F0", Vector) = (1,1,1,1)
 
+        // Ambiente
         _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
 
+        // Directional
         _DirLightDirection ("Directional Light Dir", Vector)= (2,-1,0,0)
         _DirLightColor ("Directional Light Color", Color) = (1,1,1,1)
         _DirLightIntensity ("Directional Intensity", Range(0,5)) = 1
 
+        // Point
         _PointLightPosition_w ("Point Light Position", Vector)= (0,1,0,1)
         _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
         _PointLightIntensity ("Point Light Intensity", Range(0,10))= 1
         _PointLightRange ("Point Light Range", Range(0.1,50))= 20
 
+        // Spot
         _SpotLightPosition_w ("Spot Light Position", Vector)= (0,1,0,1)
         _SpotLightDirection ("Spot Light Direction", Vector)= (0,-1,0,0)
         _SpotLightColor ("Spot Light Color", Color) = (1,1,1,1)
@@ -40,23 +44,28 @@ Shader "ShaderBlinn_Phong"
             #pragma fragment frag
             #include "UnityCG.cginc"
 
+            // Material coefficients
             float _Roughness;
             float4 _MaterialKa;
             float4 _MaterialKd;
             float4 _MaterialKs;
             float4 _F0;
 
+            // Ambient Light
             float4 _AmbientColor;
 
+            // Directional Light
             float4 _DirLightDirection;
             float4 _DirLightColor;
             float _DirLightIntensity;
 
+            // Point Light
             float4 _PointLightPosition_w;
             float4 _PointLightColor;
             float _PointLightIntensity;
             float _PointLightRange;
 
+            // Spot Light
             float4 _SpotLightPosition_w;
             float4 _SpotLightDirection;
             float4 _SpotLightColor;
@@ -84,19 +93,22 @@ Shader "ShaderBlinn_Phong"
                 return o;
             }
 
+            // Fresnel Schlick
             float3 fresnelSchlick(float3 F0, float cosTheta)
             {
-                return F0 + (1 - F0) * pow(1 - cosTheta, 5);
+                return _F0 + (1 - F0) * pow(1 - cosTheta, 5);
             }
 
+            // GGX Normal Distribution
             float D_GGX(float NdotH, float roughness)
             {
-                float a = roughness * roughness;
-                float a2 = a * a;
+                float a    = roughness * roughness;
+                float a2   = a * a;
                 float denom = (NdotH * NdotH) * (a2 - 1) + 1;
                 return a2 / (UNITY_PI * denom * denom);
             }
 
+            // Schlick–GGX Geometry 
             float G_SchlickGGX(float NdotV, float roughness)
             {
                 float r = (roughness + 1);
@@ -104,6 +116,7 @@ Shader "ShaderBlinn_Phong"
                 return NdotV / (NdotV * (1 - k) + k);
             }
 
+            // Attenuation (Point & Spot)
             float ComputeAttenuation(float3 lightPos, float3 worldPos, float range)
             {
                 float d = distance(lightPos, worldPos);
@@ -112,12 +125,15 @@ Shader "ShaderBlinn_Phong"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                // Normal y view
                 float3 N = normalize(i.worldNorm);
                 float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
+                // === Ambient term ===
                 float3 ambient = _AmbientColor.rgb * _MaterialKa.rgb;
                 float3 result = ambient;
 
+                // --- Directional Light ---
                 {
                     float3 Ld = normalize(-_DirLightDirection.xyz);
                     float3 H  = normalize(V + Ld);
@@ -126,7 +142,7 @@ Shader "ShaderBlinn_Phong"
                     float NdotH = max(dot(N, H), 0);
                     float VdotH = max(dot(V, H), 0);
 
-                    float3 F = fresnelSchlick(_F0.rgb, VdotH);
+                    float3 F = fresnelSchlick(_F0, VdotH);
                     float D = D_GGX(NdotH, _Roughness);
                     float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
 
@@ -136,14 +152,15 @@ Shader "ShaderBlinn_Phong"
                     result += _DirLightColor.rgb * _DirLightIntensity * NdotL * (diff + spec);
                 }
 
+                // --- Point Light ---
                 {
                     float3 toP = _PointLightPosition_w.xyz - i.worldPos;
                     float3 Lp  = normalize(toP);
                     float NdotL = max(dot(N, Lp), 0);
-                    float3 H = normalize(V + Lp);
+                    float3 H   = normalize(V + Lp);
                     float NdotV = max(dot(N, V), 0.001);
 
-                    float3 F = fresnelSchlick(_F0.rgb, max(dot(V, H), 0));
+                    float3 F = fresnelSchlick(_F0, max(dot(V, H), 0));
                     float D = D_GGX(max(dot(N, H), 0), _Roughness);
                     float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
                     float att = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
@@ -154,6 +171,7 @@ Shader "ShaderBlinn_Phong"
                     result += _PointLightColor.rgb * _PointLightIntensity * att * NdotL * (diff + spec);
                 }
 
+                // --- Spot Light ---
                 {
                     float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
                     float3 Ls  = normalize(toS);
@@ -165,7 +183,7 @@ Shader "ShaderBlinn_Phong"
                     float att = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spot;
                     float NdotV = max(dot(N, V), 0.001);
 
-                    float3 F = fresnelSchlick(_F0.rgb, max(dot(V, H), 0));
+                    float3 F = fresnelSchlick(_F0, max(dot(V, H), 0));
                     float D = D_GGX(max(dot(N, H), 0), _Roughness);
                     float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
                     float3 spec = (D * G * F) / max(4 * NdotV * NdotL, 0.001);
@@ -174,7 +192,21 @@ Shader "ShaderBlinn_Phong"
                     result += _SpotLightColor.rgb * _SpotLightIntensity * att * NdotL * (diff + spec);
                 }
 
+                float t = _Time.y;
+                float wave = sin(i.worldPos.x * 10 + t * 4) * 0.5 + 0.5;
+
+                // Color dinámico psicodélico
+                float3 dynamicColor = float3(sin(t * 2), sin(t * 2 + 2), sin(t * 2 + 4)) * 0.5 + 0.5;
+                float3 flareColor = lerp(result.rgb, dynamicColor, wave * 0.3);
+
+                // Distorsión en YZ
+                float2 distortion = sin(i.worldPos.yz * 20 + t * 6);
+                flareColor += 0.05 * float3(distortion, distortion.x);
+                
+                result = saturate(flareColor);
+
                 return float4(result, 1);
+
             }
             ENDCG
         }
