@@ -82,7 +82,7 @@ Material:
     - _Parallax: 0.02
     - _PointLightIntensity: 0
     - _PointLightRange: 20
-    - _Roughness: 0.02
+    - _Roughness: 0.58
     - _Shininess: 8
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
