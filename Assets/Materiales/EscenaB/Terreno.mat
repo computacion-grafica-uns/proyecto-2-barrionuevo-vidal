@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 27372bc566ff5d64b94339ef1c2b98a8, type: 3}
+        m_Texture: {fileID: 2800000, guid: f32fb21942811004c8768d291d2f3599, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -90,33 +90,33 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineWidth: 0
     - _Parallax: 0.02
-    - _PointLightIntensity: 0.5
-    - _PointLightRange: -3
+    - _PointLightIntensity: 0
+    - _PointLightRange: 3
     - _Roughness: 0.5
-    - _Shininess: 1
+    - _Shininess: 500
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0.5
+    - _SpotLightIntensity: 0
     - _SpotLightRange: 15
     - _SrcBlend: 1
     - _Threshold: 0.95
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _AmbientColor: {r: 0.7924528, g: 0.40445, b: 0.14578143, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DirLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DirLightColor: {r: 0.9622642, g: 0.50129193, b: 0.13163051, a: 1}
     - _DirLightDirection: {r: 5, g: -2, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _F0: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialKa: {r: 0, g: 0, b: 0, a: 1}
     - _MaterialKd: {r: 1, g: 1, b: 1, a: 0}
     - _MaterialKs: {r: 0, g: 0, b: 0, a: 0}
-    - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _PointLightColor: {r: 0.94509804, g: 0.30519572, b: 0.12156862, a: 1}
     - _PointLightPosition_w: {r: -1, g: 1, b: 0.6, a: 0}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
-    - _SpotLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpotLightDirection: {r: -1, g: -1, b: 0.7, a: 0}
+    - _SpotLightColor: {r: 1, g: 0.9588635, b: 0.6462264, a: 1}
+    - _SpotLightDirection: {r: -1, g: -1, b: 0.07, a: 0}
     - _SpotLightPosition_w: {r: -0.1, g: 0.9, b: 0.05, a: 0}
   m_BuildTextureStacks: []
