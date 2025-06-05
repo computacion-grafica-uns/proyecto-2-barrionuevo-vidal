@@ -7,26 +7,34 @@ public class EscenaB_CameraController : MonoBehaviour
     public enum CameraMode { FirstPerson, Orbital }
     public CameraMode mode;
     public float mouseSensitivity = 100f;
+    public List<GameObject> objects;
 
     // camara orbital
-    public float zoomSpeed, radius, pitchMin, pitchMax,minFOV, maxFOV;
-    public Vector3 centerPoint;
+    public float zoomSpeed, radius, pitchMin, pitchMax, minFOV, maxFOV;
+    
     // camara primera persona
     public float moveSpeed, heightCameraFirstPerson;
 
     private float pitch, yaw;
 
+    private int currentIndex;
+    private Vector3 centerPoint;
+    
     void Start()
     {
+        Camera.main.aspect = (float)Screen.width / Screen.height;
+        
+        currentIndex = 0;
+        centerPoint = objects[currentIndex].transform.position;
         pitch = 20f;
         yaw = 0f;
+        ChangedTarget(currentIndex);
         UpdateAnglesOrbital();
     }
 
     private void Update()
     {
         CheckControls();
-
 
         switch (mode)
         {
@@ -35,6 +43,7 @@ public class EscenaB_CameraController : MonoBehaviour
                 CheckControlFirstPerson();
                 break;
             case CameraMode.Orbital:
+                CheckControlOrbitalCamera();
                 UpdateCameraPosition();
                 CheckZoom();
                 CheckMouseLook();
@@ -92,6 +101,36 @@ public class EscenaB_CameraController : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         Camera.main.fieldOfView -= scroll * zoomSpeed;
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, minFOV, maxFOV);
+    }
+
+    private void CheckControlOrbitalCamera()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (currentIndex == objects.Count - 1)
+                return;
+            else
+                currentIndex++;
+
+            ChangedTarget(currentIndex);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentIndex == 0)
+                return;
+            else
+                currentIndex--;
+            
+            ChangedTarget(currentIndex);
+        }
+    }
+
+    private void ChangedTarget(int value)
+    {
+        GameObject target = objects[value];
+        centerPoint = target.transform.position;
+
+        UpdateCameraPosition();
     }
 
     private void CheckMouseLook()

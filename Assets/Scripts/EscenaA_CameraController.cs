@@ -17,6 +17,7 @@ public class EscenaA_CameraController : MonoBehaviour
 
     void Start()
     {
+        Camera.main.aspect = (float)Screen.width / Screen.height;
         yValue = 0;
         pitch = 0;
 

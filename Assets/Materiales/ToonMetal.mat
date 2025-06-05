@@ -80,7 +80,7 @@ Material:
     - _OutlineWidth: 0
     - _Parallax: 0.02
     - _PointInt: 0.4
-    - _PointLightIntensity: 0
+    - _PointLightIntensity: 0.5
     - _PointLightRange: -3
     - _PointRange: 15
     - _Shininess: 32
@@ -89,11 +89,11 @@ Material:
     - _SpotAngle: 30
     - _SpotInt: 0
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0
+    - _SpotLightIntensity: 0.5
     - _SpotLightRange: 15
     - _SpotRange: 15
     - _SrcBlend: 1
-    - _Threshold: 0.3
+    - _Threshold: 0.572
     - _UVSec: 0
     - _WorldLightIntensity: 1
     - _ZWrite: 1
@@ -111,7 +111,7 @@ Material:
     - _PointLightPosition: {r: 6, g: 8, b: 2, a: 1}
     - _PointLightPosition_w: {r: -1, g: 1, b: 0.6, a: 0}
     - _PointPos: {r: 6, g: 10, b: 2, a: 1}
-    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _SpecColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpotColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpotDir: {r: 0, g: -1, b: 0, a: 0}

@@ -136,14 +136,14 @@ Material:
     - _OcclusionStrength: 0.5
     - _OutlineWidth: 0.005
     - _Parallax: 0.005
-    - _PointLightIntensity: 0
+    - _PointLightIntensity: 0.5
     - _PointLightRange: -3
     - _Roughness: 0.2
     - _Shininess: 80
     - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 1
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0
+    - _SpotLightIntensity: 0.5
     - _SpotLightRange: 15
     - _SrcBlend: 1
     - _Threshold: 0.5

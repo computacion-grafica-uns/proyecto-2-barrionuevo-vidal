@@ -1028,6 +1028,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fa9abdac32c24de40b6c673cf3effa64, type: 2}
   - {fileID: 2100000, guid: f1ebd99d828a8a84d9fe7924987514ec, type: 2}
   - {fileID: 2100000, guid: 8f0e34dac104c39449861e3131c793b9, type: 2}
+  esceneA: 1
 --- !u!1001 &835768721
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f32fb21942811004c8768d291d2f3599, type: 3}
+        m_Texture: {fileID: 2800000, guid: 27372bc566ff5d64b94339ef1c2b98a8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -90,14 +90,14 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineWidth: 0
     - _Parallax: 0.02
-    - _PointLightIntensity: 0
+    - _PointLightIntensity: 0.5
     - _PointLightRange: -3
     - _Roughness: 0.5
     - _Shininess: 500
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0
+    - _SpotLightIntensity: 0.5
     - _SpotLightRange: 15
     - _SrcBlend: 1
     - _Threshold: 0.95

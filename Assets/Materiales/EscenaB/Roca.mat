@@ -82,14 +82,14 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineWidth: 0
     - _Parallax: 0.02
-    - _PointLightIntensity: 0
+    - _PointLightIntensity: 0.5
     - _PointLightRange: -3
     - _Roughness: 0.01
     - _Shininess: 32
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0
+    - _SpotLightIntensity: 0.5
     - _SpotLightRange: 15
     - _SrcBlend: 1
     - _Threshold: 0.32

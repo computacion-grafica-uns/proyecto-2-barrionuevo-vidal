@@ -27,9 +27,30 @@ public class LightController : MonoBehaviour
     [Header("Target Materials")]
     public Material[] materials;
 
+    public bool esceneA;
+
+    private float initialIntensityPoint;
+    private float initialIntensitySpot;
+    private float initialIntensityDir;
+
     void Start()
     {
-        ApplyDefaultsToAll();
+
+        initialIntensityPoint = intensityPointLight;
+        initialIntensitySpot = intensitySpotLight;
+        initialIntensityDir = intensityDirectionalLight;
+
+        PushAllValues();
+
+        if (esceneA)
+        {
+            if (intensityPointLight == 0f)
+                initialIntensityPoint = 1f;
+            if (intensitySpotLight == 0f)
+                initialIntensitySpot = 1f;
+            
+            SetActiveLight(LightMode.Directional);
+        }
     }
 
     void Update()
@@ -47,25 +68,30 @@ public class LightController : MonoBehaviour
 
     void SetActiveLight(LightMode mode)
     {
+        // Apaga todas las luces primero
+        intensityPointLight = 0f;
+        intensitySpotLight = 0f;
+        intensityDirectionalLight = 0f;
+
+        // Activa solo la luz correspondiente con su intensidad original
         switch (mode)
         {
             case LightMode.Point:
-                intensityPointLight = 1f;
-                intensitySpotLight = 0f;
-                intensityDirectionalLight = 0f;
+                intensityPointLight = initialIntensityPoint;
                 break;
             case LightMode.Directional:
-                intensityPointLight = 0f;
-                intensitySpotLight = 0f;
-                intensityDirectionalLight = 1f;
+                intensityDirectionalLight = initialIntensityDir;
                 break;
             case LightMode.Spot:
-                intensityPointLight = 0f;
-                intensitySpotLight = 1f;
-                intensityDirectionalLight = 0f;
+                intensitySpotLight = initialIntensitySpot;
                 break;
         }
-        
+
+        UpdateMaterials();
+    }
+
+    private void UpdateMaterials()
+    {
         foreach (var mat in materials)
         {
             mat.SetFloat("_PointLightIntensity", intensityPointLight);
@@ -100,11 +126,5 @@ public class LightController : MonoBehaviour
             mat.SetFloat("_SpotLightAngle", spotLightAngle);
             mat.SetFloat("_SpotLightIntensity", intensitySpotLight);
         }
-    }
-
-    void ApplyDefaultsToAll()
-    {
-        // Ensures that on Start, everything is written at least once
-        PushAllValues();
     }
 }
