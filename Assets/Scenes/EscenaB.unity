@@ -204,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: eb2776fe32a72f549b2d006779311be1, type: 2}
     - target: {fileID: 919132149155446097, guid: 3bb674dd1725b6d4392b6a10f92755ba, type: 3}
       propertyPath: m_Name
-      value: luffy
+      value: Luffy
       objectReference: {fileID: 0}
     - target: {fileID: 2518181261391181059, guid: 3bb674dd1725b6d4392b6a10f92755ba, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -299,16 +299,16 @@ MonoBehaviour:
   posSpotLight: {x: -0.1, y: 0.9, z: 0.05}
   dirSpotLight: {x: -1, y: -1, z: 0.07}
   dirDirectionalLight: {x: 5, y: -2, z: 0}
-  intensityPointLight: 0
-  intensitySpotLight: 0
+  intensityPointLight: 0.5
+  intensitySpotLight: 0.5
   intensityDirectionalLight: 1
-  pointLightRange: 3
+  pointLightRange: -3
   spotLightRange: 15
   spotLightAngle: 25
-  colorPointLight: {r: 0.94509804, g: 0.30519572, b: 0.12156862, a: 1}
+  colorPointLight: {r: 0.9, g: 0.5, b: 0.4, a: 1}
   colorSpotLight: {r: 1, g: 0.9588635, b: 0.6462264, a: 1}
   colorDirectionalLight: {r: 0.9622642, g: 0.50129193, b: 0.13163051, a: 1}
-  ambientLightColor: {r: 0.8490566, g: 0.49837065, b: 0.23629406, a: 1}
+  ambientLightColor: {r: 0.2, g: 0.2, b: 0, a: 1}
   materials:
   - {fileID: 2100000, guid: b507473c3b818744d80eb7f033058e29, type: 2}
   - {fileID: 2100000, guid: 338871f4007cf6141b2a0c484af59989, type: 2}
@@ -321,7 +321,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: eb2776fe32a72f549b2d006779311be1, type: 2}
   - {fileID: 2100000, guid: 525e99c222d0e6e4e96c2ff49390b287, type: 2}
   - {fileID: 2100000, guid: b2828c24904a673428116520433b6c50, type: 2}
-  - {fileID: 2100000, guid: 0ed058188016e8e4d9ff6783402de0d3, type: 2}
+  - {fileID: 2100000, guid: 363d8d370a55e434980393e9f9bfea41, type: 2}
   - {fileID: 2100000, guid: 92935bcd285d61949b6f37d918425f5c, type: 2}
   - {fileID: 2100000, guid: 1572744235705e6478d8841d20e5fbf5, type: 2}
   - {fileID: 2100000, guid: b3fc224c029da424aba755d63eca05ad, type: 2}
@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 525e99c222d0e6e4e96c2ff49390b287, type: 2}
     - target: {fileID: 919132149155446097, guid: af1a89f62a4f8e74d83d09ca639273ef, type: 3}
       propertyPath: m_Name
-      value: zoro
+      value: Zoro
       objectReference: {fileID: 0}
     - target: {fileID: 1442577764753888020, guid: af1a89f62a4f8e74d83d09ca639273ef, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -512,12 +512,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8f0e34dac104c39449861e3131c793b9, type: 2}
     - target: {fileID: 919132149155446097, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Name
-      value: Pava
+      value: Pava1
       objectReference: {fileID: 0}
     - target: {fileID: 4188531639213701860, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0fde244c88c65f141866e8e5d2f2f0e8, type: 2}
+      objectReference: {fileID: 2100000, guid: b88d9ab6847a5614a9442bf6dbd1b190, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -545,19 +545,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.1
+      value: -4.89
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.186
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -4.87
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.91810083
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -565,11 +565,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.39634687
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -577,7 +577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -46.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -591,6 +591,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 93dde5cde6b09b946acce9e0fc665915, type: 2}
+    - target: {fileID: -8114398623990342037, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Name
+      value: RocaPropio2
+      objectReference: {fileID: 0}
     - target: {fileID: -7871398624690754174, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -598,30 +602,34 @@ PrefabInstance:
     - target: {fileID: -7610889567837546266, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 424a4f048b529514bb9de3c887e59dda, type: 2}
+      objectReference: {fileID: 2100000, guid: 712006b75e221774daf1bb682f222d46, type: 2}
     - target: {fileID: -6462187816223702749, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: roca
+      value: BPTexturaPiedra
+      objectReference: {fileID: 0}
+    - target: {fileID: -6453244840847699967, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Name
+      value: ArbolMandarinas2
       objectReference: {fileID: 0}
     - target: {fileID: -5080216124388387113, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: socalos
+      value: AzulejoRotoPropio3
       objectReference: {fileID: 0}
     - target: {fileID: -4549757445259455984, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: metal
+      value: TorranceMetal
       objectReference: {fileID: 0}
     - target: {fileID: -3219618205381904463, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: escamas
+      value: Vela2BPMultiTex
       objectReference: {fileID: 0}
     - target: {fileID: -3103262962683067382, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 30f0de2aa1118c74b9a86664aa3ed686, type: 2}
+      objectReference: {fileID: 2100000, guid: 290a2e88f8dcff045a0c906c933812f4, type: 2}
     - target: {fileID: -2817356445302215601, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: cuero
+      value: ToonCueroMultiTex
       objectReference: {fileID: 0}
     - target: {fileID: -2712181370062166658, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -629,16 +637,20 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 92935bcd285d61949b6f37d918425f5c, type: 2}
     - target: {fileID: -2097799788148020265, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: barro
+      value: PhongBarro
       objectReference: {fileID: 0}
     - target: {fileID: -1664194828091878152, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: procedural1
+      value: VelaProcedural
       objectReference: {fileID: 0}
     - target: {fileID: -1225921544384071779, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: marmol
+      value: MarmolPulidoPropio1
       objectReference: {fileID: 0}
+    - target: {fileID: -421012656668440261, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b507473c3b818744d80eb7f033058e29, type: 2}
     - target: {fileID: 615704207967145300, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -647,21 +659,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Going Merry
       objectReference: {fileID: 0}
+    - target: {fileID: 1023041855155113328, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Name
+      value: ArbolMandarinas3
+      objectReference: {fileID: 0}
     - target: {fileID: 1301421860770719159, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0ed058188016e8e4d9ff6783402de0d3, type: 2}
+      objectReference: {fileID: 2100000, guid: 363d8d370a55e434980393e9f9bfea41, type: 2}
+    - target: {fileID: 1840344611392940141, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47603fbbfcb1cb64f83b43f69bc62f3d, type: 2}
+    - target: {fileID: 2741189408339486139, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b507473c3b818744d80eb7f033058e29, type: 2}
     - target: {fileID: 2915312557631874758, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: escamas
+      value: ToonBarro
       objectReference: {fileID: 0}
     - target: {fileID: 3390841464314828626, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: tela
+      value: TorranceBarro
       objectReference: {fileID: 0}
+    - target: {fileID: 3847321998924983611, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b507473c3b818744d80eb7f033058e29, type: 2}
     - target: {fileID: 4607668393258877731, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Name
-      value: plastico
+      value: PlasticoToon
       objectReference: {fileID: 0}
     - target: {fileID: 4847842502316263562, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -674,7 +702,15 @@ PrefabInstance:
     - target: {fileID: 5457693295339824267, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 290a2e88f8dcff045a0c906c933812f4, type: 2}
+      objectReference: {fileID: 2100000, guid: 30c11cb8a8ae1864585b5e9119604c6f, type: 2}
+    - target: {fileID: 6401799889256128390, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Name
+      value: ArbolMandarinas1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550258678880289179, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Name
+      value: TroncoMandarinas
+      objectReference: {fileID: 0}
     - target: {fileID: 8155043477772894284, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -687,6 +723,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b2828c24904a673428116520433b6c50, type: 2}
+    - target: {fileID: 8721569196580639956, guid: e9ec5c6c2bc44cd4e86112a6f9191b4c, type: 3}
+      propertyPath: m_Name
+      value: BanderaTela
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -762,7 +802,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fa9abdac32c24de40b6c673cf3effa64, type: 2}
     - target: {fileID: 919132149155446097, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Name
-      value: Pava (1)
+      value: Pava2
       objectReference: {fileID: 0}
     - target: {fileID: 4188531639213701860, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2344,6 +2384,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tronquito2
       objectReference: {fileID: 0}
+    - target: {fileID: 2552078604150096847, guid: 45667c4dc4e9e9d439311e3e952bd920, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47603fbbfcb1cb64f83b43f69bc62f3d, type: 2}
     - target: {fileID: 2572398128439236379, guid: 45667c4dc4e9e9d439311e3e952bd920, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3572,7 +3616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  mouseSensitivity: 100
+  mouseSensitivity: 500
   zoomSpeed: 20
   radius: 7
   pitchMin: 0
@@ -3681,10 +3725,10 @@ SceneRoots:
   - {fileID: 2003641600}
   - {fileID: 1242637471}
   - {fileID: 1857273435}
+  - {fileID: 337249476}
   - {fileID: 809872004}
   - {fileID: 1220860018}
   - {fileID: 1438298157}
-  - {fileID: 337249476}
   - {fileID: 207680276}
   - {fileID: 659624106}
   - {fileID: 1127015639}

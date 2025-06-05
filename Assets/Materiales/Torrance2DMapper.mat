@@ -75,7 +75,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PointLightIntensity: 0
-    - _PointLightRange: 3
+    - _PointLightRange: -3
     - _Roughness: 0.8
     - _Shininess: 64
     - _SmoothnessTextureChannel: 0
@@ -87,7 +87,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.7924528, g: 0.40445, b: 0.14578143, a: 1}
+    - _AmbientColor: {r: 0.2, g: 0.2, b: 0, a: 1}
     - _AmbientLightColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DirLightColor: {r: 0.9622642, g: 0.50129193, b: 0.13163051, a: 1}
@@ -100,7 +100,7 @@ Material:
     - _MaterialKd: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialKs: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialTint: {r: 1, g: 1, b: 1, a: 1}
-    - _PointLightColor: {r: 0.94509804, g: 0.30519572, b: 0.12156862, a: 1}
+    - _PointLightColor: {r: 0.9, g: 0.5, b: 0.4, a: 1}
     - _PointLightPosition: {r: 6, g: 10, b: 2, a: 1}
     - _PointLightPosition_w: {r: -1, g: 1, b: 0.6, a: 0}
     - _SpecularColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}

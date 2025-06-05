@@ -484,7 +484,7 @@ PrefabInstance:
     - target: {fileID: -7936024133847426488, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0ed058188016e8e4d9ff6783402de0d3, type: 2}
+      objectReference: {fileID: 2100000, guid: 363d8d370a55e434980393e9f9bfea41, type: 2}
     - target: {fileID: 919132149155446097, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Name
       value: pava20
@@ -492,7 +492,7 @@ PrefabInstance:
     - target: {fileID: 4188531639213701860, guid: a5c6411052713b642bb0efd5d2e6e0c6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0ed058188016e8e4d9ff6783402de0d3, type: 2}
+      objectReference: {fileID: 2100000, guid: 363d8d370a55e434980393e9f9bfea41, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -997,8 +997,8 @@ MonoBehaviour:
   dirDirectionalLight: {x: 2, y: -1, z: 0}
   intensityPointLight: 0
   intensitySpotLight: 0
-  intensityDirectionalLight: 0.75
-  pointLightRange: 20
+  intensityDirectionalLight: 1
+  pointLightRange: 14
   spotLightRange: 20
   spotLightAngle: 25
   colorPointLight: {r: 1, g: 1, b: 1, a: 1}
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a14b9e7a5a8cad54599c06e79fc273a8, type: 2}
   - {fileID: 2100000, guid: 4417f540beb224144aa8776cc30d10da, type: 2}
   - {fileID: 2100000, guid: b2828c24904a673428116520433b6c50, type: 2}
-  - {fileID: 2100000, guid: 0ed058188016e8e4d9ff6783402de0d3, type: 2}
+  - {fileID: 2100000, guid: 363d8d370a55e434980393e9f9bfea41, type: 2}
   - {fileID: 2100000, guid: 92935bcd285d61949b6f37d918425f5c, type: 2}
   - {fileID: 2100000, guid: fa9abdac32c24de40b6c673cf3effa64, type: 2}
   - {fileID: 2100000, guid: f1ebd99d828a8a84d9fe7924987514ec, type: 2}

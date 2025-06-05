@@ -31,10 +31,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: ee8da3c971415144684ddaf39aa9f136, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: ee8da3c971415144684ddaf39aa9f136, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -55,16 +51,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _FlowMap:
-        m_Texture: {fileID: 2800000, guid: 6333121311c21c442bf471fb33e985f7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _HeightMap:
-        m_Texture: {fileID: 2800000, guid: effcc4b74b76a4941a858719303dc6dc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: affc83ebe0d846140a7854fce8fd3cc8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -85,13 +73,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BlobDepth: 4
-    - _BlobMoveSpeed: 3
-    - _BlobSaturation: 0.8
-    - _BlobScale: 5
-    - _BlobValue: 0.4
     - _BumpScale: 1
-    - _ColorThreshold: 0.53
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DirLightIntensity: 1
@@ -99,20 +81,15 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GradThresh: 0.0046
-    - _HueScale: 2
-    - _HueSpeed: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PointLightIntensity: 0
-    - _PointLightRange: 3
-    - _Roughness: 0.5
+    - _PointLightRange: -3
     - _Shininess: 32
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.2
     - _SpotLightAngle: 25
     - _SpotLightIntensity: 0
     - _SpotLightRange: 15
@@ -120,17 +97,15 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.7924528, g: 0.40445, b: 0.14578143, a: 1}
-    - _Background: {r: 0, g: 0, b: 0, a: 1}
+    - _AmbientColor: {r: 0.2, g: 0.2, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DirLightColor: {r: 0.9622642, g: 0.50129193, b: 0.13163051, a: 1}
     - _DirLightDirection: {r: 5, g: -2, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _F0: {r: 1, g: 1, b: 1, a: 1}
     - _MaterialKa: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _MaterialKd: {r: 1, g: 1, b: 1, a: 1}
+    - _MaterialKd: {r: 0.6, g: 0.6, b: 0.6, a: 1}
     - _MaterialKs: {r: 1, g: 1, b: 1, a: 1}
-    - _PointLightColor: {r: 0.94509804, g: 0.30519572, b: 0.12156862, a: 1}
+    - _PointLightColor: {r: 0.9, g: 0.5, b: 0.4, a: 1}
     - _PointLightPosition_w: {r: -1, g: 1, b: 0.6, a: 0}
     - _SpotLightColor: {r: 1, g: 0.9588635, b: 0.6462264, a: 1}
     - _SpotLightDirection: {r: -1, g: -1, b: 0.07, a: 0}
