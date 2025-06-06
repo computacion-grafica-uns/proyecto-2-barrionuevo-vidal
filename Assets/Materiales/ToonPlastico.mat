@@ -80,7 +80,7 @@ Material:
     - _OutlineWidth: 0
     - _Parallax: 0.02
     - _PointInt: 0.4
-    - _PointLightIntensity: 0.5
+    - _PointLightIntensity: 1
     - _PointLightRange: -3
     - _PointRange: 15
     - _RimAmount: 0.404
@@ -90,7 +90,7 @@ Material:
     - _SpotAngle: 30
     - _SpotInt: 0
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0.5
+    - _SpotLightIntensity: 1
     - _SpotLightRange: 15
     - _SpotRange: 15
     - _SrcBlend: 1

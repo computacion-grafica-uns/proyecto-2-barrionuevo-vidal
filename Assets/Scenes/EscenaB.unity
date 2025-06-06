@@ -299,8 +299,8 @@ MonoBehaviour:
   posSpotLight: {x: -0.1, y: 0.9, z: 0.05}
   dirSpotLight: {x: -1, y: -1, z: 0.07}
   dirDirectionalLight: {x: 5, y: -2, z: 0}
-  intensityPointLight: 0.5
-  intensitySpotLight: 0.5
+  intensityPointLight: 1
+  intensitySpotLight: 1
   intensityDirectionalLight: 1
   pointLightRange: -3
   spotLightRange: 15

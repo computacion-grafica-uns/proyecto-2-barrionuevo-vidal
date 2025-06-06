@@ -2,36 +2,39 @@ Shader "Blinn_Phong"
 {
     Properties
     {
-        // Parámetros para simular AGUA
-        _Roughness ("Roughness", Range(0.01,1)) = 0.02
-        _MaterialKa ("Material Ka (Ambient)", Vector) = (0.01,0.01,0.02,1)
-        _MaterialKd ("Material Kd (Diffuse)", Vector) = (0.05,0.1,0.2,1)
-        _MaterialKs ("Material Ks (Specular)", Vector) = (0.8,0.9,1.0,1)
-        _F0 ("Valor F0", Vector) = (0.05,0.05,0.06,1)
+        // Propiedades del material
+        _Shininess("Shininess (Gloss)", Range(1,500)) = 32
+        _MaterialKa("Material Ka", Vector) = (0,0,0,0)
+        _MaterialKd("Material Kd", Vector) = (0,0,0,0)
+        _MaterialKs("Material Ks", Vector) = (0,0,0,0)
 
-        _AmbientColor ("Ambient Light Color", Color) = (0.2,0.2,0.2,1)
-
-        _DirLightDirection ("Directional Light Dir", Vector)= (2,-1,0,0)
-        _DirLightColor ("Directional Light Color", Color) = (1,1,1,1)
-        _DirLightIntensity ("Directional Intensity", Range(0,5)) = 1
-
-        _PointLightPosition_w ("Point Light Position", Vector)= (0,1,0,1)
-        _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
-        _PointLightIntensity ("Point Light Intensity", Range(0,10))= 1
-        _PointLightRange ("Point Light Range", Range(0.1,50))= 20
-
-        _SpotLightPosition_w ("Spot Light Position", Vector)= (0,1,0,1)
-        _SpotLightDirection ("Spot Light Direction", Vector)= (0,-1,0,0)
-        _SpotLightColor ("Spot Light Color", Color) = (1,1,1,1)
-        _SpotLightIntensity ("Spot Light Intensity", Range(0,10)) = 1
-        _SpotLightRange ("Spot Light Range", Range(0.1,50))= 20
-        _SpotLightAngle ("Spot Light Half-Angle", Range(0,90)) = 25
+        // Ambiente
+        _AmbientColor("Ambient Light Color", Color) = (1,1,1,1)  
+             
+        // Luz puntual
+        _PointLightPosition_w("Point Light Position", Vector) = (0,2,0,1)
+        _PointLightColor("Point Light Color", Color) = (1,1,1,1)
+        _PointLightIntensity("Point Light Intensity", Range(0,10)) = 1.0
+        _PointLightRange ("Point Light Range", Range(0.1,50)) = 10
+        
+        // Luz direccional
+        _DirLightDirection("Directional Light Dir",Vector) = (0,-1,0,0)
+        _DirLightColor("Directional Light Color",Color) = (1,1,1,1)
+        _DirLightIntensity("Directional Intensity",Range(0,5)) = 1
+        
+        // Luz spot
+        _SpotLightPosition_w("Spot Light Position", Vector) = (0,3,0,1)
+        _SpotLightDirection("Spot Light Direction", Vector) = (0,-1,0,0)
+        _SpotLightColor("Spot Light Color",Color) = (1,1,1,1)
+        _SpotLightIntensity("Spot Light Intensity", Range(0,10)) = 1
+        _SpotLightRange("Spot Light Range", Range(0.1,50))= 15
+        _SpotLightAngle("Spot Light Half-Angle", Range(0,90)) = 30
     }
 
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        LOD 200
+        LOD 100
 
         Pass
         {
@@ -39,142 +42,103 @@ Shader "Blinn_Phong"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
+            
+            // Variables del material
+            float  _Shininess;
+            float3 _MaterialKa;
+            float3 _MaterialKd;
+            float3 _MaterialKs;
 
-            float _Roughness;
-            float4 _MaterialKa;
-            float4 _MaterialKd;
-            float4 _MaterialKs;
-            float4 _F0;
-
+            //variables luces
             float4 _AmbientColor;
 
-            float4 _DirLightDirection;
+            float4 _DirLightDirection; 
             float4 _DirLightColor;
-            float _DirLightIntensity;
+            float  _DirLightIntensity;
 
             float4 _PointLightPosition_w;
             float4 _PointLightColor;
-            float _PointLightIntensity;
-            float _PointLightRange;
+            float  _PointLightIntensity;
+            float  _PointLightRange;
 
             float4 _SpotLightPosition_w;
             float4 _SpotLightDirection;
             float4 _SpotLightColor;
-            float _SpotLightIntensity;
-            float _SpotLightRange;
-            float _SpotLightAngle;
+            float  _SpotLightIntensity;
+            float  _SpotLightRange;
+            float  _SpotLightAngle;
 
             struct appdata {
-                float4 vertex : POSITION;
+                float4 position : POSITION;
                 float3 normal : NORMAL;
             };
 
             struct v2f {
-                float4 pos : SV_POSITION;
+                float4 position : SV_POSITION;
                 float3 worldPos : TEXCOORD0;
-                float3 worldNorm : TEXCOORD1;
+                float3 worldNormal : TEXCOORD1;
             };
 
             v2f vert(appdata v)
             {
                 v2f o;
-                o.pos = UnityObjectToClipPos(v.vertex);
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-                o.worldNorm = normalize(UnityObjectToWorldNormal(v.normal));
+                o.position = UnityObjectToClipPos(v.position);
+                o.worldPos = mul(unity_ObjectToWorld, v.position).xyz;
+                o.worldNormal = normalize(UnityObjectToWorldNormal(v.normal));
                 return o;
-            }
-
-            float3 fresnelSchlick(float3 F0, float cosTheta)
-            {
-                return F0 + (1 - F0) * pow(1 - cosTheta, 5);
-            }
-
-            float D_GGX(float NdotH, float roughness)
-            {
-                float a = roughness * roughness;
-                float a2 = a * a;
-                float denom = (NdotH * NdotH) * (a2 - 1) + 1;
-                return a2 / (UNITY_PI * denom * denom);
-            }
-
-            float G_SchlickGGX(float NdotV, float roughness)
-            {
-                float r = (roughness + 1);
-                float k = (r * r) / 8.0;
-                return NdotV / (NdotV * (1 - k) + k);
             }
 
             float ComputeAttenuation(float3 lightPos, float3 worldPos, float range)
             {
-                float d = distance(lightPos, worldPos);
-                return saturate(1 - (d * d) / (range * range));
+                float dist = distance(lightPos, worldPos);
+                return saturate(1.0 - (dist * dist) / (range * range));
             }
+
 
             fixed4 frag(v2f i) : SV_Target
             {
-                float3 N = normalize(i.worldNorm);
+                float3 N = normalize(i.worldNormal);
                 float3 V = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                float3 ambient = _AmbientColor.rgb * _MaterialKa.rgb;
-                float3 result = ambient;
+                // ------------------ Luz ambiental ------------------
+                
+                float3 ambient = _AmbientColor * _MaterialKa.rgb;
 
-                {
-                    float3 Ld = normalize(-_DirLightDirection.xyz);
-                    float3 H  = normalize(V + Ld);
-                    float NdotL = max(dot(N, Ld), 0);
-                    float NdotV = max(dot(N, V), 0.001);
-                    float NdotH = max(dot(N, H), 0);
-                    float VdotH = max(dot(V, H), 0);
+                // ------------------ Luz direccional ------------------
+                float3 Ld = normalize(-_DirLightDirection.xyz);
+                float  Nld = max(0, dot(N, Ld));
+                float3 Rld = reflect(-Ld, N);
+                float  Sld = pow(max(dot(Rld, V), 0), _Shininess);
+                float3 diffD = _DirLightColor.rgb * _DirLightIntensity * Nld * _MaterialKd.rgb;
+                float3 specD = _DirLightColor.rgb * _DirLightIntensity * Sld * _MaterialKs.rgb;
 
-                    float3 F = fresnelSchlick(_F0.rgb, VdotH);
-                    float D = D_GGX(NdotH, _Roughness);
-                    float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
+                // ------------------ Luz puntual ------------------
+                float3 toP = _PointLightPosition_w.xyz - i.worldPos;
+                float3 Lp  = normalize(toP);
+                float  Nlp = max(0, dot(N, Lp));
+                float3 Rlp = reflect(-Lp, N);
+                float  Slp = pow(max(dot(Rlp, V), 0), _Shininess);
+                float  attP = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
+                float3 diffP = _PointLightColor.rgb * _PointLightIntensity * attP * Nlp * _MaterialKd.rgb;
+                float3 specP = _PointLightColor.rgb * _PointLightIntensity * attP * Slp * _MaterialKs.rgb;
 
-                    float3 spec = (D * G * F) / max(4 * NdotV * NdotL, 0.001);
-                    float3 diff = _MaterialKd.rgb / UNITY_PI;
-
-                    result += _DirLightColor.rgb * _DirLightIntensity * NdotL * (diff + spec);
-                }
-
-                {
-                    float3 toP = _PointLightPosition_w.xyz - i.worldPos;
-                    float3 Lp  = normalize(toP);
-                    float NdotL = max(dot(N, Lp), 0);
-                    float3 H = normalize(V + Lp);
-                    float NdotV = max(dot(N, V), 0.001);
-
-                    float3 F = fresnelSchlick(_F0.rgb, max(dot(V, H), 0));
-                    float D = D_GGX(max(dot(N, H), 0), _Roughness);
-                    float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
-                    float att = ComputeAttenuation(_PointLightPosition_w.xyz, i.worldPos, _PointLightRange);
-
-                    float3 spec = (D * G * F) / max(4 * NdotV * NdotL, 0.001);
-                    float3 diff = _MaterialKd.rgb / UNITY_PI;
-
-                    result += _PointLightColor.rgb * _PointLightIntensity * att * NdotL * (diff + spec);
-                }
-
-                {
-                    float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
-                    float3 Ls  = normalize(toS);
-                    float NdotL = max(dot(N, Ls), 0);
-                    float3 H = normalize(V + Ls);
-                    float cosAngle = dot(normalize(-_SpotLightDirection.xyz), Ls);
-                    float cutoff = cos(radians(_SpotLightAngle));
-                    float spot = step(cutoff, cosAngle);
-                    float att = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spot;
-                    float NdotV = max(dot(N, V), 0.001);
-
-                    float3 F = fresnelSchlick(_F0.rgb, max(dot(V, H), 0));
-                    float D = D_GGX(max(dot(N, H), 0), _Roughness);
-                    float G = G_SchlickGGX(NdotV, _Roughness) * G_SchlickGGX(NdotL, _Roughness);
-                    float3 spec = (D * G * F) / max(4 * NdotV * NdotL, 0.001);
-                    float3 diff = _MaterialKd.rgb / UNITY_PI;
-
-                    result += _SpotLightColor.rgb * _SpotLightIntensity * att * NdotL * (diff + spec);
-                }
-
-                return float4(result, 1);
+                // ------------------ Luz spot ------------------
+                float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
+                float3 Ls  = normalize(toS);
+                float Nls = max(0, dot(N, Ls));
+                float3 Rls = reflect(-Ls, N);
+                float Sls = pow(max(dot(Rls, V), 0), _Shininess);
+                float cosAngle = dot(normalize(-_SpotLightDirection.xyz), Ls);
+                float cutoff = cos(radians(_SpotLightAngle));
+                float inner = cos(radians(_SpotLightAngle * 0.8));
+                float outer = cos(radians(_SpotLightAngle));
+                float spotFactor = smoothstep(outer, inner, cosAngle);
+                float  attS = ComputeAttenuation(_SpotLightPosition_w.xyz, i.worldPos, _SpotLightRange) * spotFactor;
+                float3 diffS = _SpotLightColor.rgb * _SpotLightIntensity * attS * Nls * _MaterialKd.rgb;
+                float3 specS = _SpotLightColor.rgb * _SpotLightIntensity * attS * Sls * _MaterialKs.rgb;
+                
+                float3 col = ambient + diffD + specD + diffP + specP + diffS + specS;
+                return float4(col, 1); 
             }
             ENDCG
         }

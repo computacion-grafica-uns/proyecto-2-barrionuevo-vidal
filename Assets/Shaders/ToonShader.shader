@@ -171,6 +171,7 @@
                 float3 ambient = _AmbientColor.rgb * _Color.rgb;
                 float3 colorOut = ambient;
 
+                // Luz direccional
                 {
                     float3 Ld = normalize(-_DirLightDirection.xyz);
                     float  NdotL = max(dot(N, Ld), 0);
@@ -187,6 +188,7 @@
                     colorOut += diffD + specD;
                 }
 
+                // Luz puntual
                 {
                     float3 toP = _PointLightPosition_w.xyz - i.worldPos;
                     float3 Lp = normalize(toP);
@@ -205,6 +207,7 @@
                     colorOut += diffP + specP;
                 }
 
+                // Luz spot
                 {
                     float3 toS = _SpotLightPosition_w.xyz - i.worldPos;
                     float3 Ls = normalize(toS);

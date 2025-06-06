@@ -117,8 +117,8 @@ Shader "Blinn_Phong_Multitextura"
             {
                 // Muestreamos texturas
                 float3 albedoSample = tex2D(_AlbedoMap, i.uv).rgb;     // color base
-                float  metallicSample = tex2D(_MetallicMap, i.uv).r;     // R = cuánto “metálico” (0..1)
-                float  aoSample = tex2D(_AOMap, i.uv).r;           // R = oclusión ambiental (0..1)
+                float metallicSample = tex2D(_MetallicMap, i.uv).r;     // cuánto “metálico” 
+                float aoSample = tex2D(_AOMap, i.uv).r;           // oclusión ambiental
 
                 // Normal “por vértice” (sin NormalMap)
                 float3 N = normalize(i.worldNorm);
@@ -131,7 +131,7 @@ Shader "Blinn_Phong_Multitextura"
                 // Luz Direccional
                 {
                     float3 L = normalize(-_DirLightDirection.xyz);
-                    float  NdotL  = max(dot(N, L), 0);
+                    float NdotL = max(dot(N, L), 0);
 
                     if (NdotL > 0)
                     {

@@ -88,13 +88,13 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PointLightIntensity: 0.5
+    - _PointLightIntensity: 1
     - _PointLightRange: -3
     - _Roughness: 0.35
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpotLightAngle: 25
-    - _SpotLightIntensity: 0.5
+    - _SpotLightIntensity: 1
     - _SpotLightRange: 15
     - _SrcBlend: 1
     - _UVSec: 0

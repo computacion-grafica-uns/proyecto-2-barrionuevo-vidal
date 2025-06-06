@@ -102,8 +102,8 @@ Shader "Cook_Torrance"
             // GGX Normal Distribution
             float D_GGX(float NdotH, float roughness)
             {
-                float a    = roughness * roughness;
-                float a2   = a * a;
+                float a = roughness * roughness;
+                float a2 = a * a;
                 float denom = (NdotH * NdotH) * (a2 - 1) + 1;
                 return a2 / (UNITY_PI * denom * denom);
             }
